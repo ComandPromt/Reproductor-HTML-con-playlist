@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title></title>
+        
+        
+		<script type="text/javascript">
+            
+            var mp3Support = canPlayMp3();
+			var vorbisSupport = canPlayOgg();
+			console.log("vorbisSupport = " + vorbisSupport, ", mp3Support = " + mp3Support);
+					
+			function canPlayMp3() {
+				var a = document.createElement('audio');
+				return !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
+			}
+			
+			function canPlayOgg() {
+				var a = document.createElement('audio');
+				return !!(a.canPlayType && a.canPlayType('audio/ogg; codecs="vorbis"').replace(/no/, ''));
+			}
+			
+			/*
+			DESKTOP:
+			ff - yes
+			chrome - yes
+			safari - yes
+			opera - yes
+			ie10 - yes
+			ie9 - yes
+			ie8 (and below) - html5 audio is not supported, flash needs to be used, we dont test this here.
+			
+			MOBILE:
+			IOS:
+			safari - no
+			chrome - no
+			ANDROID
+			ff - yes
+			chrome - no
+			*/
+			
+		</script>
+    
+      </head>
+      <body>  
+		  
+        
+         
+         <audio controls="controls" autoplay>
+         	  <source src="01.mp3" type="audio/mpeg">
+			  <source src="01.ogg" type="audio/ogg">
+              Your browser does not support the audio element.
+         </audio>
+		 
+	
+      </body>
+</html>
