@@ -1,0 +1,2680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Help Documentation</title>
+    
+        <style type="text/css">
+        
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-family: Verdana, Helvetica, sans-serif;
+                font-size: 14px;
+                color: #333;
+            }
+                    
+            #navigation {
+                width: 300px;
+                background-color: #333;
+                position: fixed;
+                height: 100%;
+                left: 0px;
+				z-index:100;
+				overflow:auto;
+            }
+			        
+            #menu {
+				position:absolute;
+				top:90px;
+				left:30px;
+                line-height: 16px;
+            }
+                    
+            #menu ul {
+                margin: 0px;
+                padding: 0px;
+            }
+                    
+            #menu ul li {
+                display: block;
+                margin: 0px;
+                padding: 0px;
+                list-style-type: none;
+                margin-bottom: 15px;
+                text-align: left;
+            }
+                    
+            #menu ul li a {
+                color: #333;
+                font-size: 12px;
+                text-decoration: none;
+                display: inline-block;
+                padding: 3px;
+                background-color: #ddd;
+                outline: none;
+            }
+                    
+            #menu ul li a:visited {
+                color: #333333;
+            }
+                  
+				  
+				    
+            #content {
+                padding: 40px;
+                line-height: 22px;
+				background-color: #fff;
+			}
+                    
+            #content img {
+                border: 1px solid #DDDDDD;
+            }
+                    
+            #content .page h2 {
+                margin: 0px;
+                padding: 12px;
+                background-color: #EEEEEE;
+                display: inline-block;
+                font-size: 18px;
+                color: #999999;
+				margin-bottom:20px;
+				margin-top:50px;
+            }
+                    
+            #content .page h3 {
+                margin: 0px;
+                font-size: 18px;
+                padding: 20px 0 0 20px;
+                color: #999999;
+            }
+                    
+            #content .page h4 {
+                font-size: 14px;
+                color: #999999;
+            }
+                    
+            #content .page {
+                position: absolute;
+                top: 40px;
+                left: 340px;
+                padding-bottom: 80px;
+				padding-right: 40px;
+				display:none;
+			}
+
+			#content .page:first-child {
+				display:block;
+			}
+                    
+            #content .page ul {
+                margin: 12px;
+            }
+                    
+            #content .page ul li {
+                padding-right: 40px;
+                margin-bottom: 12px;
+                font-size: 14px;
+            }
+                    
+            #content .page p {
+				margin:0px;
+            }
+			
+			#content .page p img {
+				margin-top: 5px;
+			}
+            
+            .setting {
+				display: inline-block;
+				background-color: #FFC;
+				border: 1px solid #EEE;
+				padding: 8px;
+				font-size: 13px;
+				margin:5px 0 5px 0;
+            }
+			
+			#productTitle{
+				position:fixed;
+				top:0px;
+				left:0px;
+				width:100%;
+				font-size: 25px;
+                color: #fff;
+				background:#111;
+				display:inline-block;
+				padding:10px;
+				z-index:101;
+            }
+			
+			#productTitle a{
+				font-size: 25px;
+                color: #fff;
+				text-decoration:none;
+            }
+			
+			.code {
+				
+				font-family:Arial, Helvetica, sans-serif;
+				font-size: 15px;
+				display: inline-block;
+				background-color:#FFFFE5;
+				border: 1px solid #EEE;
+				padding: 5px 20px;
+				
+			}
+			
+			pre {
+				 white-space: pre-wrap;       /* css-3 */
+				 white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+				 white-space: -pre-wrap;      /* Opera 4-6 */
+				 white-space: -o-pre-wrap;    /* Opera 7 */
+				 word-wrap: break-word;       /* Internet Explorer 5.5+ */
+			}
+        
+        </style>
+        
+        <script src="assets/jquery-1.7.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+                
+            var pageContent = [], len;
+                
+            $(document).ready(function() {
+				var content=$("#menu ul li a");
+				len=content.length;
+				//console.log(len);
+				var _item;
+				for(var i = 0; i < len; i++) {
+					_item=$(content[i]).attr("id", i).bind('click',changePage);
+                }
+				i=0;
+				content= $(".page");
+				for(i; i < len; i++) {
+					_item=$(content[i]).attr("id", i).css("display", "none");
+                    pageContent[i] =_item;
+                }
+				//load first page
+				pageContent[0].css("display", "block");
+            });
+                
+            function changePage() {
+                var id = parseInt($(this).attr("id"),10);
+				//console.log('changePage ', id);
+                for(var i = 0; i < len; i++) {
+					//console.log(pageContent[i]);
+                    if(id == i) {
+                        pageContent[i].css("display", "block");
+                    }else {
+                        pageContent[i].css("display", "none");
+                    }
+                }
+				window.scroll(0,0);
+				return false;
+            }
+			changePage(0);
+        
+        </script>
+    
+    </head>
+    <body>
+    
+        <div id="navigation">
+        
+            <div id="menu">
+                <ul>
+                    <li><a href="#">Installation</a></li>
+                    
+                    <li><a href="#">How player works</a></li>
+                    
+                    <li><a href="#">File structure</a></li>
+                    
+                    <li><a href="#">Using mp3/ogg audio playback</a></li>
+                    
+                    <li><a href="#">Using SoundCloud</a></li>
+                    <li><a href="#">Using Podcasts</a></li>
+                    <li><a href="#">Using Youtube</a></li>
+                    <li><a href="#">Using Official FM</a></li>
+                    
+                    <li><a href="#">Mixing playlists</a></li>
+                    
+                    <li><a href="#">Using examples with popup</a></li>
+                    
+                    <li><a href="#">Using examples with circle seekbar</a></li>
+                    
+                    <li><a href="#">Special features</a></li>
+                    
+                    <li><a href="#">Using download</a></li>
+                    
+                    <li><a href="#">Detecting sound error</a></li>
+                    
+                    <li><a href="#">Multiple player instances</a></li>
+                     
+                    <li><a href="#">Callbacks</a></li>
+                    <li><a href="#">API methods</a></li>
+                    
+                    <li><a href="#">Possible audio issues</a></li>
+                    <li><a href="#">Player initialization problems</a></li>
+                    
+                    <li><a href="#">Scrollbar</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="content">
+            
+            <div class="page">
+                
+                <h2>Installation</h2><br/>
+                
+                <p>
+                
+                <strong>What is in the package?</strong><br/><br/>
+                
+                You have 2 folders in the package (deploy and source). <strong>You only need deploy folder on your server</strong>. Source folder contains non minified javascript files and flash source code.<br/><br/>
+                <font style="color:red; font-weight:bold;">Please do not place non-minified javascript files on your server.</font><br/><br/>
+                
+                <strong>Deploy folder info:</strong><br/><br/>
+                
+                php files:<br/><br/>
+                
+                dl.php (used for downloading files)<br/>
+                mail.php (used for ios download backup / sending emails because ios cannot download files)<br/>
+                folder_parser.php (used for reading directories with mp3 files)<br/>
+                includes/database.php, outside-web-root-settings.php (used for reading playlist from the database)<br/><br/>
+                
+                PIE.htc (used for IE8 and below backup shadow: <a href='http://css3pie.com/' target='_blank'>http://css3pie.com/</a>)<br/><br/>
+                
+                <strong>Source folder info:</strong><br/><br/>
+                
+                flash files:<br/><br/>
+                
+                flash_audio (flash backup for browsers that do not support html5 audio)<br/>
+                flash_circle (flash circle backup, not audio, just the circle itself)<br/>
+                flash_youtube (flash backup for IE8 and below since youtube modern iframe embed API works only on IE9 and above)<br/>
+                <br/><br/><br/><br/>
+                
+                
+                
+                <strong>How to install this in your website?</strong><br/><br/>
+                
+                Every demo page is already a website, but it only contains my player, nothing more. So you should aim to reproduce the same layout from my demo pages in your webpage.<br/><br/>
+                
+                To start open demo page you want to use in any text editor (Dreamweaver is good if you have it, but any plain text editor will do).<br/>There are 2 sections (one in head tag and one in body tag) that you need to copy.<br/>In the head tag you have links to all the stylesheet and javascript files. In the body part are all the component elements.<br/><br/>
+
+                Make sure you copy everything from both head and body tags into your web page at appropriate places.<br/><br/>
+
+				Also take all folders from deploy folder (css, js, includes, xml ... etc) and place them on your website as well, keeping the same structure between files.<br/><br/>
+
+
+Be carefull when inserting various bits from my demo page into yours.<br/><br/>
+
+<font style="color:red; font-weight:bold;">One of the most common errors</font> is duplicating jquery script for example:<br/><br/>
+
+<div class="code"><pre><code><font style="color:red; font-weight:bold;">&lt;script type="text/javascript" src="js/jquery-1.10.2.min.js">&lt;/script&gt;</font>
+</pre></code></div><br/><br/>
+
+If your web page already includes link to jquery as shown above (regardless if you use different version), then <strong>DO NOT</strong> include it twice!<br/><br/>
+
+The same goes for other scripts as well, maybe for example, you already have jScrollPane in your webpage and you have included a script for that.<br/><br/><br/><br/>
+
+                
+                <strong>Editing jQuery file</strong><br/><br/>
+                
+                If you need to edit the main jquery files (which hold javascript code for the component), you will see they come in 2 versions with the package: <strong>'minified'</strong> and <strong>'non-minified'</strong>.<br/><br/>What this basically means is that minified versions has some of the 'encryption' applied. <br/>This is usefull in case someone takes your script from your website, making it almost useless for any kind of editing at least. <br/>I suggest using minified versions on your website!<br/>Ofcourse if you need to edit this file yourself, switch to non-minified version (from the source folder) and then when you finish editing you can minify the file yourself here:<br/>
+                    <a href='http://closure-compiler.appspot.com/home' target='_blank'>http://closure-compiler.appspot.com/home</a><br/><br/>Its as simple as it gets, you just copy/paste content of the whole file in the left provided space, press 'COMPILE' and when its done copy/paste all content from the right window back to your file, overwritting all the content with the new one.<br/><br/>
+                    Minified files usually have <strong>.min</strong> extension in its name and non-minified dont! <br/>
+                    It doesnt have to be that way, its just a common practice, but its important note in case your web paths get wrong.
+                </p>
+                
+                
+            </div>
+            
+            <div class="page">
+            
+                <h2>How player works</h2><br/>
+                
+                <p>
+                
+                
+                	Playlist can be either <font style="color:red; font-weight:bold;">visible</font> or <font style="color:red; font-weight:bold;">hidden</font> (this actually refers to the playlist items themselves). <br/><br/>
+                    
+                    When you load a new playlist using the <strong>loadPlaylist</strong> method, previous playlist gets destroyed automatically.<br/><br/>
+                    
+                    You can add tracks in the playlist with <strong>addTrack</strong> method and you can remove tracks from that playlist with <strong>removeTrack</strong> method.<br/><br/>
+                    
+                    Also, calling the <strong>addTrack</strong> method with no previous playlist loaded will create a new playlist with that track inside, so it would be just like calling <strong>loadPlaylist</strong> method with one track inside (or multiple ones).<br/><br/>
+                    
+                    So lets say you load a <font style="color:red; font-weight:bold;">visible</font> playlist in the player.<br/><br/>
+                    
+                    Now you can add tracks to it with <strong>addTrack</strong> method. And you keep adding <font style="color:red; font-weight:bold;">visible</font> tracks to it.
+                    
+                    You can also remove tracks from it by using <strong>removeTrack</strong> method.<br/><br/>
+                    
+                    Now if at any point you load a <font style="color:red; font-weight:bold;">hidden</font> track, previous <font style="color:red; font-weight:bold;">visible</font> playlist will get destroyed and new <font style="color:red; font-weight:bold;">hidden</font> playlist will be created with that <font style="color:red; font-weight:bold;">hidden</font> track(s) you just added.<br/><br/>
+                    
+                    And now you can again add tracks and remove tracks from that playlist.<br/><br/>
+                    
+                    The point is <font style="color:red; font-weight:bold;">visible</font> and <font style="color:red; font-weight:bold;">hidden</font> playlist are not interchangable and you can only have one at a time.<br/><br/>
+                    
+                    You can also access playlist data using this API method:<br/><br/>
+                    
+<div class="code"><pre><code>/* returns array of objects for every song in current playlist: {id, type, mp3, ogg, length, title, thumb, download, dlink, plink} */ 
+this.getPlaylistData = function(){
+    if(!componentInited) return false;
+    if(playlistTransitionOn) return false;
+    if(!lastPlaylist) return false;
+    return playlistDataArr;	
+}</pre></code></div><br/><br/>
+
+					Every time new playlist is created, new track added/removed or playlist modified in any way, this array will be updated and you will be able to see your playlist content.<br/><br/><br/><br/>
+                
+                
+                
+                
+                    
+                    Visible playlist tracks get appended into <strong>playlist_inner</strong> element:<br/><br/>
+                    
+<div class="code"><pre><code>&lt;div class="playlistHolder"&gt;
+     &lt;div class="componentPlaylist"&gt;
+         &lt;div class="playlist_inner"&gt;
+            <font style="color:red; font-weight:bold;">&lt;!-- playlist items are appended here! --&gt; </font>
+         &lt;/div&gt;
+     &lt;/div&gt;
+     &lt;!-- preloader --&gt; 
+     &lt;div class="preloader"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+</pre></code></div><br/><br/>
+						
+                    Hidden tracks are appended in div which gets created on runtime but is not appended in the dom:<br/><br/>
+                    
+                    Code in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font>:<br/><br/>
+                    
+<div class="code"><pre><code>var hidden_playlist_holder = $('&lt;div/&gt;');//hidden playlist
+</pre></code></div><br/><br/>  
+
+					So when you load a playlist on start you specify this attribute (visible/hidden): <br/><br/>                    
+
+					Code in <font style="color:red; font-weight:bold;">javascript settings file</font>:<br/><br/> 
+
+<div class="code"><pre><code>/* activePlaylist: set active playlist that will be loaded on beginning. 
+param1: hidden (boolean) true/false (visible/hidden playlist)
+param2: id (pass element 'id' from the dom)
+Leave empty for no playlist loaded at start like this: activePlaylist: '' */
+activePlaylist: {<font style="color:red; font-weight:bold;">hidden: false</font>, id: '#playlist1'},</pre></code></div><br/><br/>
+    
+   					Or when you are load a playlist on runtime using <strong>loadPlaylist</strong> API you also specify this attribute (visible/hidden) <br/><br/>                      
+
+<div class="code"><pre><code>&lt;li&gt;&lt;a href='#' onClick="api_loadPlaylist(hap_players[0],{<font style="color:red; font-weight:bold;">hidden: false</font>, id: '#playlist1'}); return false;"&gt;Load local playlist 1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='#' onClick="api_loadPlaylist(hap_players[0],{<font style="color:red; font-weight:bold;">hidden: true</font>, id: '#playlist3'}); return false;"&gt;Load podcast playlist 1&lt;/a&gt;&lt;/li&gt;
+</pre></code></div><br/><br/><br/><br/>
+
+
+					<font style="color:red; font-weight:bold;">loadPlaylist</font> method always accepts playlists in a form of <strong>'html'</strong>, I call it such because it looks like this:<br/><br/>
+
+<div class="code"><pre><code>&lt;li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast'&gt;&lt;/li&gt;
+</pre></code></div><br/><br/>
+
+					While <font style="color:red; font-weight:bold;">addTrack</font> method accepts tracks both in a form of <strong>'html'</strong> and <strong>'data'</strong> (objects), so it can be like this (html form):<br/><br/>
+
+<div class="code"><pre><code>var trackList_podcast = [
+	"&lt;li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast'/&gt;",
+	"&lt;li class= 'playlistItem' data-type='podcast' data-path='http://www.kingola.com/feed/podcast/'/&gt;"
+];</pre></code></div><br/><br/>
+
+					or like this (data (object) form):<br/><br/>
+                    
+<div class="code"><pre><code>var trackList2_podcast = [
+	{type: 'podcast', path: 'http://gidilounge.fm/?feed=podcast'}, 
+	{type: 'podcast', path: 'http://www.kingola.com/feed/podcast/' }
+];</pre></code></div><br/><br/> 
+
+					You have many track examples in both html and data format located in <font style="color:red; font-weight:bold;">jquery.html5audio.func.js</font>.<br/><br/><br/><br/>
+                    
+
+
+                    If you are loading a playlist from <font style="color:red; font-weight:bold;">XML</font>
+, you can use only <strong>html</strong> format tracks:<br/><br/>            
+
+<div class="code"><pre><code>var trackList_podcast = [
+	"&lt;li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast'/&gt;",
+	"&lt;li class= 'playlistItem' data-type='podcast' data-path='http://www.kingola.com/feed/podcast/'/&gt;"
+];</pre></code></div><br/><br/> 
+
+					You have XML playlist examples in xml folder.<br/><br/><br/><br/>
+
+
+
+
+					If you are loading a playlist from the <font style="color:red; font-weight:bold;">DATABASE</font>
+, you can use both <strong>html</strong> and <strong>data</strong> form: <br/><br/>              
+
+<div class="code"><pre><code>var trackList_database = [
+	"&lt;li class= 'playlistItem' data-type='database_data' data-path='ap_hap' data-table='sound'/&gt;"
+];</pre></code></div><br/><br/>
+ 
+<div class="code"><pre><code>var trackList2_database = [
+	{type: 'database_data', path: 'ap_hap', table: 'sound'}
+];</pre></code></div><br/><br/>
+
+					You have database playlist examples in help folder (one is in <strong>html</strong>, other in <strong>data</strong> format).<br/><br/><br/><br/>
+                    
+
+					Dont get confused with database loading:<br/><br/>
+                    
+                    Here we add track in <font style="color:red; font-weight:bold;">html</font> format:<br/><br/>
+                    
+<div class="code"><pre><code>&lt;li&gt;&lt;a href='#' onClick="api_addTrack(hap_players[0], 'visible', <font style="color:red; font-weight:bold;">'html'</font>, trackList_database[0], 0); return false;"&gt;Add db1 html track 0, position 0&lt;/a&gt;&lt;/li&gt;					
+</pre></code></div><br/><br/>
+
+					but tracks in database are in data format (<font style="color:red; font-weight:bold;">data-type='database_data'</font>)!<br/><br/>
+                    
+<div class="code"><pre><code>var trackList_database = [
+	"&lt;li class= 'playlistItem' <font style="color:red; font-weight:bold;">data-type='database_data'</font> data-path='ap_hap' data-table='sound'/&gt;"
+];</pre></code></div><br/><br/>
+
+					Here we add track in <font style="color:red; font-weight:bold;">html</font> format as well:<br/><br/>
+                    
+<div class="code"><pre><code>&lt;li&gt;&lt;a href='#' onClick="api_addTrack(hap_players[0], 'visible', <font style="color:red; font-weight:bold;">'html'</font>, trackList_database[0], 0); return false;"&gt;Add db1 html track 0, position 0&lt;/a&gt;&lt;/li&gt;					
+</pre></code></div><br/><br/>
+
+					and tracks in database are in html format (<font style="color:red; font-weight:bold;">data-type='database_html'</font>)!<br/><br/>
+                    
+<div class="code"><pre><code>var trackList_database = [
+	"&lt;li class= 'playlistItem' <font style="color:red; font-weight:bold;">data-type='database_html'</font> data-path='ap_hap' data-table='sound1'/&gt;"
+];</pre></code></div><br/><br/><br/><br/>
+
+					Here we add track in <font style="color:red; font-weight:bold;">data</font> format:<br/><br/>
+                    
+<div class="code"><pre><code>&lt;li&gt;&lt;a href='#' onClick="api_addTrack(hap_players[0], 'visible', <font style="color:red; font-weight:bold;">'data'</font>, trackList2_database[0], 0); return false;"&gt;Add db1 html track 0, position 0&lt;/a&gt;&lt;/li&gt;					
+</pre></code></div><br/><br/>
+
+					but tracks in database are in html format (<font style="color:red; font-weight:bold;">data-type='database_html'</font>)!<br/><br/>
+                    
+<div class="code"><pre><code>var trackList2_database = [
+	{<font style="color:red; font-weight:bold;">type: 'database_html'</font>, path: 'ap_hap', table: 'sound1'}
+];</pre></code></div><br/><br/>
+
+                    Here we add track in <font style="color:red; font-weight:bold;">data</font> format as well:<br/><br/>
+                    
+<div class="code"><pre><code>&lt;li&gt;&lt;a href='#' onClick="api_addTrack(hap_players[0], 'visible', <font style="color:red; font-weight:bold;">'data'</font>, trackList2_database[0], 0); return false;"&gt;Add db1 html track 0, position 0&lt;/a&gt;&lt;/li&gt;					
+</pre></code></div><br/><br/>
+
+					and tracks in database are in data format (<font style="color:red; font-weight:bold;">data-type='database_data'</font>).<br/><br/>
+                    
+<div class="code"><pre><code>var trackList2_database = [
+	{<font style="color:red; font-weight:bold;">type: 'database_data'</font>, path: 'ap_hap', table: 'sound'}
+];</pre></code></div><br/><br/>
+                
+                </p>
+                
+            </div>
+            
+            <div class="page">
+                
+                <h2>File structure</h2><br/>
+                
+                <p>
+                
+                Every demo page contains links to <strong>css</strong> and <strong>javascript</strong> files in the <font style="color:red; font-weight:bold;">head</font> tag:<br/><br/>
+                
+<div class="code"><pre><code>&lt;link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css" media="all" /&gt;&lt;!-- scroll in playlist --&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/html5audio_default.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/html5audio_playlist_selector.css" /&gt;
+
+&lt;script type="text/javascript" src="js/swfobject.js"&gt;&lt;/script&gt;&lt;!-- flash backup --&gt;
+&lt;script type="text/javascript" src="js/jquery-1.10.2.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"&gt;&lt;/script&gt;&lt;!-- jquery ui sortable/draggable --&gt;
+&lt;script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"&gt;&lt;/script&gt;&lt;!-- mobile drag/sort --&gt;
+&lt;!--[if lte IE 9 ]&gt;&lt;script type="text/javascript" src="js/jquery.XDomainRequest.js"/&gt;&lt;![endif]--&gt;&lt;!-- ofm ie9 and below fix --&gt;
+&lt;script type="text/javascript" src="js/jquery.mousewheel.min.js"&gt;&lt;/script&gt;&lt;!-- scroll in playlist --&gt;
+&lt;script type="text/javascript" src="js/jquery.jscrollpane.min.js"&gt;&lt;/script&gt;&lt;!-- scroll in playlist --&gt;
+&lt;script type="text/javascript" src="js/jquery.html5audio.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.html5audio.func.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.html5audio.settings_playlist_selector.js"&gt;&lt;/script&gt;</pre></code></div><br/><br/>
+                
+                Its commented so it should be clear what belongs to what.<br/><br/>
+                
+                The <strong>bare minimum</strong> is this:<br/><br/>
+                
+ <div class="code"><pre><code>&lt;link rel="stylesheet" type="text/css" href="css/html5audio_default.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/html5audio_playlist_selector.css" /&gt;
+
+&lt;script type="text/javascript" src="js/swfobject.js"&gt;&lt;/script&gt;&lt;!-- flash backup --&gt;
+&lt;script type="text/javascript" src="js/jquery-1.10.2.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.html5audio.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.html5audio.func.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.html5audio.settings_playlist_selector.js"&gt;&lt;/script&gt;</pre></code></div><br/><br/>
+               
+               As an example, I have removed jScrollPane references, Youtube references, backup javascript for Official.fm music, Text Scroller (which scrolls song name if used), jQuery UI which was used for dragging and sorting playlist items. <br/><br/>
+               
+               <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> is a main jquery file for the component, and <font style="color:red; font-weight:bold;">jquery.apPlaylistManager.js</font>, these two things are necessary!<br/><br/>
+               
+               Also, <font style="color:red; font-weight:bold;">jquery.html5audio.func.js</font> contains lots of assets like API, callbacks, track examples, popup code, some default variables and some of the flash functions which are needed if flash is being used (for both flash audio on the browsers than do not support html5 audio and for youtube backup on IE8 and below).<br/><br/>
+               
+               Each settings file, in this example <font style="color:red; font-weight:bold;">jquery.html5audio.settings_playlist_selector.js</font> contains player settings, and part of the code which initializes component and creates flash movies if necessary.<br/><br/>
+               
+               Of course you can combine all these into single file as it suits your needs.<br/><br/><br/><br/>
+               
+               
+               
+               For the <font style="color:red; font-weight:bold;">body</font> tag, the <strong>bare minimum</strong> is this:<br/><br/>
+                
+<div class="code"><pre><code>&lt;div id="componentWrapper"&gt;&lt;/div&gt;</pre></code></div><br/><br/>
+
+			   So we need an element on which component is going to be initialized:<br/><br/>
+                
+<div class="code"><pre><code>var hap_player1, hap_players = [hap_player1];
+jQuery(document).ready(function($) {
+	jsReady = true;
+	//init component
+	hap_players[0] = $('#componentWrapper').html5audio(hap_settings);
+});</pre></code></div><br/><br/>
+
+				All other player elements are optional.<br/><br/>
+                                
+                Check <font style="color:red; font-weight:bold;">How player works</font> chapter in help on little bit more info on playlist creation.<br/><br/>
+
+                If you are going to use <strong>visible playlist</strong> you will need this element because visible playlist tracks get appended into it:<br/><br/>
+                
+<div class="code"><pre><code>&lt;div class="playlistHolder"&gt;
+     &lt;div class="componentPlaylist"&gt;
+         &lt;div class="playlist_inner"&gt;
+            <font style="color:red; font-weight:bold;">&lt;!-- playlist items are appended here! --&gt; </font>
+         &lt;/div&gt;
+     &lt;/div&gt;
+     &lt;!-- preloader --&gt; 
+     &lt;div class="preloader"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+</pre></code></div><br/><br/>
+
+                If you are going to use <strong>hidden playlist</strong> than you dont need any other elements.<br/><br/>
+                
+                Once component is ready (check callbacks in <font style="color:red; font-weight:bold;">jquery.html5audio.func.js</font>), you can loadPlaylist, addTracks, removeTracks etc...<br/><br/>
+                
+                The <strong>bare minimum</strong> to play music, is to use <strong>inputAudio</strong> API method, check API methods on the bottom of <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> file.<br/><br/>
+                
+                <strong>inputAudio</strong> API method does not create any kind of playlist tracks, or any kind of playlist data, it just plays current song that we passed to the player.<br/><br/>
+                
+                If we already have (visible or hidden) playlist loaded and then we use <strong>inputAudio</strong> API method, this will not destroy current playlist, it will just play this audio, we can always return to our playlist, so <strong>inputAudio</strong> API method doesnt really affect our <strong>'main'</strong> playlist data.<br/><br/>
+                
+                </p>
+                
+            </div>
+            
+         	<div class="page">
+                
+               <h2>Using mp3/ogg audio playback</h2><br/>
+                
+                <p>
+                
+                You can load audio files from your server or another servers as well.<br/><br/>
+                
+                Playlist with <strong>mp3/ogg</strong> tracks looks like this:<br/><br/>
+                
+<div class="code"><pre><code>&lt;ul id='playlist1'&gt;
+     &lt;li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' data-download>&lt;a class='playlistNonSelected' href='#'&gt;Tim McMorris - A Bright And Hopeful Future&lt;/a&gt;&lt;a class='dlink' href='#' data-dlink='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3'&gt;&lt;img src='media/data/dlink.png' alt = ''/&gt;&lt;/a&gt;&lt;a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'&gt;&lt;img src='media/data/url.png' alt = 'purchase'/&gt;&lt;/a&gt;&lt;/li&gt;
+     &lt;li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.ogg'&gt;&lt;a class='playlistNonSelected' href='#'&gt;Tim McMorris - Give Our Dreams Their Wings To Fly&lt;/a&gt;&lt;/li&gt; 
+&lt;/ul&gt;</pre></code></div><br/><br/>
+
+			As you can see, every track has link to <font style="color:red; font-weight:bold;">mp3</font> file and <font style="color:red; font-weight:bold;">ogg</font> version of the sound file as well.<br/><br/>
+
+			To use html5 audio, you <strong>need to encode</strong> your audio files in 2 different formats (mp3 and ogg) to cover every browser since some browsers reqire 'mp3', while others 'ogg' to play audio.<br/><br/> 
+            
+            This is the current requirement of html5 audio:<br/><br/>
+            
+            <a href='http://www.w3schools.com/html/html5_audio.asp' target='_blank'>http://www.w3schools.com/html/html5_audio.asp</a><br/><br/>
+
+			Alternativelly, you can set the player to use just mp3 format:<br/><br/>
+            
+            In every settings javascript file, you will see this option:<br/><br/>
+               
+<div class="code"><pre><code>/* useOnlyMp3Format: true/false (set to true, and on browsers than do not support mp3, flash will be used to play mp3. Also set to true if you plan on using podcast, soundcloud, youtube, ofm) */
+useOnlyMp3Format: true,</pre></code></div><br/><br/><br/><br/>
+                
+            
+            
+            
+            
+            If audio doesnt play on your server in some browsers and get an errors in browser console similar to these:<br/><br/>
+            
+           <strong>HTTP "Content-Type" of "application/octet-stream" is not supported. Load of media resource ... failed.<br>
+            HTTP "Content-Type" of "audio/mpeg" is not supported. Load of media resource ... failed..</strong><br><br>
+
+           This is telling you that its a <a href='https://www.google.hr/search?q=eye+icon&source=lnms&sa=X&ei=rU23U7zaMO2g7Aap0YCIAw&ved=0CAcQ_AUoAA&biw=1920&bih=945&dpr=1#q=html5+audio+mime+type' target='_blank'>mime type</a> problem.<br/><br/>
+           
+           Basically, what you need to do is add these lines in your .htaccess file on your server and audio will work for all browsers:<br/><br/>
+            
+<div class="code"><pre><code>AddType audio/aac .aac
+AddType audio/mp4 .mp4 .m4a
+AddType audio/mpeg .mp1 .mp2 .mp3 .mpg .mpeg
+AddType audio/ogg .oga .ogg
+AddType audio/wav .wav
+AddType audio/webm .webm<br/></pre></code></div><br/><br/> 
+
+
+
+
+            <br/><br/><br/><br/>
+			<font style="color:red; font-weight:bold;">Reading files from folder</font><br/><br/>
+
+            Playlist <strong>auto-generated from the folder</strong> looks like this:<br/><br/>
+                
+<div class="code"><pre><code>&lt;ul id='playlist12'&gt;
+    &lt;li class= "playlistItem" data-type='folder' data-path='../media/audio/1/'/&gt;
+&lt;/ul&gt;
+</pre></code></div><br/><br/> 
+
+            Or multiple folders for example:<br/><br/>
+
+<div class="code"><pre><code>&lt;ul id='playlist12'&gt;
+    &lt;li class= "playlistItem" data-type='folder' data-path='../media/audio/1/'/&gt;
+    &lt;li class= "playlistItem" data-type='folder' data-path='../media/audio/2/'/&gt;
+&lt;/ul&gt;
+</pre></code></div><br/><br/> 
+
+			Also, any subdirectories within these folder(s) will automatically be read as well. This is the default option. To set otherwise add this attribute:<br/><br/>
+            
+<div class="code"><pre><code>&lt;ul id='playlist12'&gt;
+    &lt;li class= "playlistItem" data-type='folder' data-path='../media/audio/1/' <font style="color:red; font-weight:bold;">data-subdirs='false'</font>/&gt;
+&lt;/ul&gt;
+</pre></code></div><br/><br/><br/><br/>
+
+
+            
+            
+            <font style="color:red; font-weight:bold;">IMPORTANT - NAMING YOUR FILES!</font><br/><br/>
+            
+            When using this method to create your playlists you have to name your files properly!<br/><br/>
+            
+            Code will search for files with 'mp3' extension in the folder.<br/><br/>
+            
+            <font style="color:red; font-weight:bold;">Both 'mp3' and 'ogg' pair need to be named exactly the same!</font>, and dont use spaces in names (just like normal naming convention on the web):<br/><br/>
+            
+            Example of proper naming:<br/><br/>
+            
+            <strong> 
+            Tim_McMorris_-_Be_My_Valentine.mp3<br/>
+            Tim_McMorris_-_Be_My_Valentine.ogg
+            </strong><br/><br/>
+            
+            Failing even in just one letter will cause an error because my script cant guess that some 'ogg' audio file, for example, is the equivalent pair of some mp3 audio file, because they have different name. Could just be a different song.<br/><br/>
+            
+            Here I used <strong>underscores</strong> to separate file names and then in my code, then I remove these underscores when creating titles for the playlist (which in case of 'folder playlist' are automatically generated from the file name).<br/><br/>
+            
+            Also, in some demo examples (like <strong>index_basic.html</strong>) thumbnails are used in playlist items.
+            
+            When playlist is created from folder, code will automatically assume thumbnail with the same name and 'jpg' extension exist in the same location as the mp3 file, so you actually should have this for every song in the playlist (if thumbnails are being used):<br/><br/> 
+            
+            <strong> 
+            Tim_McMorris_-_Be_My_Valentine.mp3<br/>
+            Tim_McMorris_-_Be_My_Valentine.ogg<br/>
+            Tim_McMorris_-_Be_My_Valentine.jpg
+            </strong><br/><br/> 
+
+            When auto creating playlist from folder of mp3 files, php is used (<strong>folder_parser.php</strong>), and because of that you need to run this either online or on local server like xampp!<br/><br/>
+            
+            Code in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font>:<br/><br/>
+            
+<div class="code"><pre><code>}else if(data_type == 'folder'){
+			
+    _currentInsert=_item.data('toremove','true');
+    
+    var url = 'folder_parser.php', sub_dirs = true;
+    <font style="color:red; font-weight:bold;">if(_item.attr('data-subdirs') != undefined && _item.attr('data-subdirs') == 'false'){
+        sub_dirs = false;
+    }</font>
+    var data = {"dir": data_path, "sub_dirs": sub_dirs};
+    
+    $.ajax({
+        type: 'GET',
+        url: url,
+        data: data,
+        dataType: "json"
+    }).done(function(media) {
+    
+        //console.log(media);
+        //console.log(media.length, media[0], media[1]);
+    
+        var i = 0, len = media.length, entry, obj, title;
+        //console.log(len);
+        for(i; i < len; i++){
+            entry = media[i];
+            //console.log(entry);
+            
+            path = entry.path;
+            
+            if(path.indexOf('\\')){//replace backward slashes
+                path = path.replace(/\\/g,"/");
+            }
+            //console.log(path);
+            
+            obj={};
+            obj.type = 'folder';
+            if(path.indexOf('.mp3')){
+                obj.mp3 = path;
+            }
+            <font style="color:red; font-weight:bold;">obj.ogg = path.substr(0, path.lastIndexOf('.')) + '.ogg';//asssume ogg file exist with the same name!
+            obj.thumb = path.substr(0, path.lastIndexOf('.')) + '.jpg';//asssume thumb file exist with the same name!</font>
+            //console.log(obj.mp3, obj.ogg);
+            
+            //get title without extension
+            no_ext = path.substr(0, path.lastIndexOf('.'));
+            if (/\//i.test(no_ext)) {
+                title = no_ext.substr(no_ext.lastIndexOf('/')+1);
+            }else{
+                title = no_ext;
+            }
+            //remove underscores from title 
+            title = title.split("_").join(" ");
+            //console.log('title = ', title);
+            obj.title = title;
+            if(_plink)obj.plink = _plink;
+            if(_dlink)obj.dlink = _dlink;
+            if(_download)obj.download = _download;
+            if(default_artwork)obj.thumb = default_artwork;	
+            
+            processPlaylistDataArr.push(obj);
+        }
+        createNodes();
+    
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        //alert('Folder process error: ' + jqXHR.responseText);
+        if(useAlertMessaging) alert("Read folder error! Make sure you run this online or on local server!"); 
+        if(useAlertMessaging) alert('Playlist process failed, folder: ' + data_path);
+        if(_currentInsert && _currentInsert.data('toremove')=='true')_currentInsert.remove();
+        processPlaylistArr.shift();
+        checkPlaylistProcess();
+    });
+
+}</pre></code></div><br/><br/>
+                    
+                </p>
+                
+            </div>
+            
+            <div class="page">
+                
+               <h2>Using SoundCloud</h2><br/>
+               
+                To use SoundCloud do this:<br/><br/>
+                
+                <p><strong>1</strong>.<br/>Register you SoundCloud api key here for free: <br/>
+                
+                <a href='http://soundcloud.com/you/apps/new' target='_blank'>http://soundcloud.com/you/apps/new</a><br/><br/>
+                
+                And enter the <strong>Client ID</strong> into in javascript settings file:<br/><br/>
+                
+<div class="code"><pre><code>/* soundcloudApiKey: If you want to use SoundCloud music, register you own api key here for free: 
+'http://soundcloud.com/you/apps/new' and enter Client ID */
+soundcloudApiKey: '',</pre></code></div><br/><br/><br/>  
+                
+                <strong>2</strong>.<br/>SoundCloud and Podcasts come only in 'mp3' format (no 'ogg').<br/><br/>  
+                
+                So if you want to use them, you will need to set player to use only mp3 format (this means that player will use flash to play mp3 on the browser that does not support ogg audio format, like firefox and opera in the moment of speaking).<br/><br/>
+                
+                In every settings javascript file, you will see this option:<br/><br/>
+               
+<div class="code"><pre><code>/* useOnlyMp3Format: true/false (set to true, and on browsers than do not support mp3, flash will be used to play mp3. Also set to true if you plan on using podcast, soundcloud, youtube, ofm) */
+useOnlyMp3Format: true,</pre></code></div><br/><br/>
+                
+                
+                <br/><br/>
+                
+                <strong>3</strong>.<br/>SoundCloud examples look like this:<br/><br/>
+                
+<div class="code"><pre><code>&lt;!-- Soundcloud playlists --&gt;
+ &lt;!-- track set --&gt;
+ &lt;ul id='playlist8'&gt;
+    &lt;li class= "playlistItem" data-type='soundcloud' data-path='http://soundcloud.com/trance/sets/magix-revolta-2/'/&gt;
+ &lt;/ul&gt;
+ &lt;!-- user tracks --&gt;
+ &lt;ul id='playlist9'&gt;
+    &lt;li class= "playlistItem" data-type='soundcloud' data-path='http://soundcloud.com/computer-magic'/&gt;
+ &lt;/ul&gt;
+ &lt;!-- single track --&gt;
+ &lt;ul id='playlist10'&gt;
+    &lt;li class= "playlistItem" data-type='soundcloud' data-path='http://soundcloud.com/trance/trance-single-138-bpm-anvil'/&gt;
+ &lt;/ul&gt;
+ &lt;!-- user favorites --&gt;
+ &lt;ul id='playlist11'&gt;
+    &lt;li class= "playlistItem" data-type='soundcloud' data-path='http://soundcloud.com/mixessss/favorites'/&gt;
+ &lt;/ul&gt;
+  &lt;!-- groups -->
+ &lt;ul id='playlist12'&gt;
+    &lt;li class= 'playlistItem' data-type='soundcloud' data-path='https://soundcloud.com/groups/electronic-freakshow-efs-members-friends'&gt;&lt;/li&gt;
+ &lt;/ul&gt;</pre></code></div><br/><br/>
+                
+                Supported are <strong>track set, user tracks, single track, user favorites, soundcloud groups.</strong><br/><br/>
+                    
+                </p>
+                
+            </div>
+            
+            <div class="page">
+                
+               <h2>Using Podcasts</h2><br/>
+                
+                <p>
+                
+                <strong>1</strong>.<br/>Podcasts examples look like this:<br/><br/>
+                
+<div class="code"><pre><code>&lt;!-- podcast playlists --&gt;
+ &lt;ul id='playlist3'&gt;
+     &lt;li class= "playlistItem" data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast'/&gt;
+ &lt;/ul&gt;
+ &lt;ul id='playlist4'&gt;
+     &lt;li class= "playlistItem" data-type='podcast' data-path='http://www.kingola.com/feed/podcast/'/&gt;
+ &lt;/ul&gt;
+ &lt;ul id='playlist5'&gt;
+     &lt;li class= "playlistItem" data-type='podcast' data-path='http://www.npr.org/rss/podcast.php?id=510008'/&gt;
+ &lt;/ul&gt;
+ &lt;ul id='playlist6'&gt;
+     &lt;li class= "playlistItem" data-type='podcast' data-path='http://feeds.feedburner.com/xpnmusicnotes/'/&gt;
+ &lt;/ul&gt;
+ &lt;ul id='playlist7'&gt;
+     &lt;li class= "playlistItem" data-type='podcast' data-path='http://robertkelly.libsyn.com/rss'/&gt;
+ &lt;/ul&gt;</pre></code></div><br/><br/>
+                
+                <strong>Player is able to process</strong> the type of podcasts that come in the same rss/xml format as the examples shown above (look at the page source at any of the podcasts url examples above).<br/><br/>
+                
+                The point is that my code in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> gets the mp3 url and title attributtes which my player needs.<br/><br/>
+                
+<div class="code"><pre><code>}else if(data_type == 'podcast') {
+			
+_currentInsert=_item.data('toremove','true');
+    
+//https://groups.google.com/forum/#!topic/google-ajax-search-api/hJG3qJpQOpY	
+//https://developers.google.com/feed/v1/devguide
+//http://stackoverflow.com/questions/5971177/google-feed-api-and-grabbing-tags-and-attributes
+//http://stackoverflow.com/questions/11139065/google-feed-loader-api-ignoring-xml-attributes
+
+var url = 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=xml&num='+podcast_result_limit+'&callback=?&q='+ encodeURIComponent(data_path); 
+//console.log(url);
+
+$.ajax({
+    type: 'GET',
+    url: url,
+    dataType: 'jsonp',
+    cache: false
+}).done(function( result ) {
+    //console.log(result);
+    //console.log(result.responseData.xmlString);
+    
+    if(result.responseData == null){
+        if(useAlertMessaging) alert('Playlist process failed, podcast: ' + data_path);
+        if(_currentInsert && _currentInsert.data('toremove')=='true')_currentInsert.remove();
+        processPlaylistArr.shift();
+        checkPlaylistProcess();
+        return;	
+    }
+    
+    if(!ieBelow9){
+        
+        feedParser.html(result.responseData.xmlString);//store in case of large amount of data
+        var tempArr =  feedParser.get(0).getElementsByTagName('item');
+        var i = 0, len = tempArr.length, entry, dur, obj, thumb;
+        
+        for(i; i < len; i++){
+            entry = tempArr[i];
+            obj={};
+            obj.type = 'podcast';
+            obj.mp3 = entry.getElementsByTagName('enclosure')[0].getAttribute('url');
+            obj.ogg='';//dummy path 
+            //console.log(entry.getElementsByTagName('itunes:duration')[0]);
+            if(entry.getElementsByTagName('itunes:duration')[0] != undefined){//fix for ios!
+                dur = hmsToSecondsOnly(entry.getElementsByTagName('itunes:duration')[0].childNodes[0].nodeValue);
+                obj.length = parseInt((dur*1000),10);//we want miliseconds
+                //console.log(typeof(obj.length), obj.length);
+            }
+            //thumb
+            if(entry.getElementsByTagName('media:thumbnail')[0] != undefined){
+                if(entry.getElementsByTagName('media:thumbnail')[0].getAttribute('url') != undefined){
+                    obj.thumb = entry.getElementsByTagName('media:thumbnail')[0].getAttribute('url');
+                }else if(default_artwork){
+                    obj.thumb = default_artwork;	
+                }
+            }else if(default_artwork){
+                obj.thumb = default_artwork;	
+            }
+            obj.title = entry.getElementsByTagName('title')[0].childNodes[0].nodeValue;
+            if(_plink)obj.plink = _plink;
+            if(_dlink)obj.dlink = _dlink;
+            if(_download)obj.download = _download;
+            //console.log(obj.url ,obj.title);
+            processPlaylistDataArr.push(obj);
+        }
+        
+    }else{
+        
+        var dom = parseXML(result.responseData.xmlString), _item, obj;
+        $(dom).find("item").each(function(){
+            _item=$(this);
+            //console.log(_item.find('enclosure').attr('url'));
+            //console.log(_item.find('title').text());
+            
+            obj={};
+            obj.type = 'podcast';
+            obj.mp3 = _item.find('enclosure').attr('url');
+            obj.ogg='';//dummy path 
+            obj.title = _item.find('title').text();
+            //thumb
+            //console.log(_item.find('media\\:thumbnail').attr('url'));
+            if(_item.find('media\\:thumbnail').length>0){
+                if(_item.find('media\\:thumbnail').attr('url')){
+                    obj.thumb = _item.find('media\\:thumbnail').attr('url');
+                }else if(default_artwork){
+                    obj.thumb = default_artwork;	
+                }
+            }else if(default_artwork){
+                obj.thumb = default_artwork;	
+            }
+            if(_plink)obj.plink = _plink;
+            if(_dlink)obj.dlink = _dlink;
+            if(_download)obj.download = _download;
+            processPlaylistDataArr.push(obj);
+        });
+    }
+    
+    createNodes();
+
+}).fail(function(jqXHR, textStatus, errorThrown) {
+    if(useAlertMessaging) alert('Parse feed error: ' + jqXHR.responseText);
+    if(useAlertMessaging) alert('Playlist process failed, podcast: ' + data_path);
+    if(_currentInsert && _currentInsert.data('toremove')=='true')_currentInsert.remove();
+    processPlaylistArr.shift();
+    checkPlaylistProcess();
+}); 
+
+}</pre></code></div><br/><br/><br/>
+                
+                
+                <strong>2</strong>.<br/>SoundCloud and Podcasts come only in 'mp3' format (no 'ogg').<br/><br/>  
+                
+                So if you want to use them, you will need to set player to use only mp3 format (this means that player will use flash to play mp3 on the browser that does not support ogg audio format, like firefox and opera in the moment of speaking).<br/><br/>
+                
+                In every settings javascript file, you will see this option:<br/><br/>
+               
+<div class="code"><pre><code>/* useOnlyMp3Format: true/false (set to true, and on browsers than do not support mp3, flash will be used to play mp3. Also set to true if you plan on using podcast, soundcloud, youtube, ofm) */
+useOnlyMp3Format: true,</pre></code></div><br/><br/>
+                
+                <br/><br/>
+              
+                    
+                </p>
+                
+            </div>
+            
+            <div class="page">
+            
+               <h2>Using Youtube</h2><br/>
+                
+                <p>
+                
+                Youtube examples look like this:<br/><br/>
+                
+<div class="code"><pre><code>&lt;!-- youtube singles --&gt;
+ &lt;ul id='playlist17'&gt;
+     &lt;li class='playlistItem' data-type='youtube_single' data-path='opL4oe62XL8' data-plink="http://www.google.com"&gt;&lt;/li&gt;
+     &lt;li class='playlistItem' data-type='youtube_single' data-path='Akb7SJgGx1A' &gt;&lt;/li&gt;
+     &lt;li class='playlistItem' data-type='youtube_single' data-path='uPOUgobWTT0' &gt;&lt;/li&gt;
+ &lt;/ul&gt;
+ 
+ &lt;ul id='playlist17'&gt;
+     &lt;li class='playlistItem' data-type='youtube_single_list' data-path='opL4oe62XL8,Akb7SJgGx1A,uPOUgobWTT0' data-plink="http://www.google.com"&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+ 
+ &lt;!-- youtube playlist --&gt;
+ &lt;ul id='playlist18'&gt;
+     &lt;li class= 'playlistItem' data-type='youtube_playlist' data-path='PLE0311B1CFA360F55'&gt;&lt;/li&gt; 
+ &lt;/ul&gt;</pre></code></div><br/><br/>
+ 
+ 
+ 				Supported are youtube single video and youtube playlist.<br/><br/>
+                
+                Make sure you test online or on local server because some youtube videos do not play offline and you get a message like:<br/><br/>
+                
+                "This video contains content from .... It is restricted from playback on certain sites."<br/><br/><br/><br/>
+                
+                
+                <strong>Youtube on mobile</strong><br/><br/>
+                
+                Youtube will not autoplay on mobile phones:
+                
+                <a href='https://developers.google.com/youtube/iframe_api_reference#Mobile_considerations' target='_blank'>https://developers.google.com/youtube/iframe_api_reference#Mobile_considerations</a><br/><br/>
+                
+                You can test this by running example <strong>youtube_autoplay.html</strong> from <strong>audio_test folder.</strong><br/><br/>
+                
+                It doesnt want to autoplay with their API, example <strong>youtube_autoplay_with_api.html</strong> from <strong>audio_test folder.</strong><br/><br/>
+                
+                It doesnt even want to autoplay if you use your own button with their API, example <strong>youtube_autoplay_with_api_button.html</strong> from <strong>audio_test folder.</strong><br/><br/>
+                
+                This means you have to press play on youtube red play buton which appears on the beginning of the video.<br/><br/>
+                
+                So if you use youtube with this player to start playing youtube (only the first time) you will have to press play manually.<br/><br/><br/><br/>
+                
+                
+                
+                The other problem wiht mobile IOS is that youtube multiple instances will not start playing. This works on android but not on IOS.<br/><br/>
+                
+                You can test this by running example <strong>youtube_multiple_instances.html</strong> from <strong>audio_test folder.</strong><br/><br/>
+                
+                So in demo examples like <strong>index_wrap_multi2.html</strong> or <strong>index_full2.html</strong> where multiple youtube instances can appear (if youtube is used) will simply not work on IOS as it is currently.<br/><br/>
+                
+              </p>
+                
+            </div>  
+                
+            <div class="page">
+            
+               <h2>Using Official FM</h2><br/>
+                
+                <p>
+                
+                <a href='http://official.fm/' target='_blank'>http://official.fm/</a><br/><br/>
+                
+                
+                Official fm examples look like this:<br/><br/>
+                
+<div class="code"><pre><code>&lt;!-- ofm single tracks --&gt;
+ &lt;ul id='playlist19'&gt;
+     &lt;li class= 'playlistItem' data-type='ofm_single' data-path='D4lw' data-download data-dlink&gt;&lt;/li&gt; 
+     &lt;li class= 'playlistItem' data-type='ofm_single' data-path='B1pl' data-dlink data-plink="http://www.google.com"&gt;&lt;/li&gt; 
+     &lt;li class= 'playlistItem' data-type='ofm_single' data-path='GGXE'&gt;&lt;/li&gt;  
+ &lt;/ul&gt;
+ 
+ &lt;!-- ofm playlist tracks --&gt;
+ &lt;ul id='playlist20'&gt;
+     &lt;li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7' data-plink='http://codecanyon.net/user/Tean/portfolio'&gt;&lt;/li&gt; 
+ &lt;/ul&gt;
+ 
+ &lt;!-- ofm project tracks --&gt;
+ &lt;ul id='playlist21'&gt;
+     &lt;li class= 'playlistItem' data-type='ofm_project' data-path='edB6'&gt;&lt;/li&gt; 
+ &lt;/ul&gt;</pre></code></div><br/><br/>
+                
+                Supported are single tracks, playlist tracks, project tracks.<br/><br/>
+                
+                Their documentation is mentioning rate limiting:<br/><br/>
+                
+                <a href='https://github.com/officialfm/api/blob/master/README.md' target='_blank'>https://github.com/officialfm/api/blob/master/README.md</a><br/><br/>
+                
+                <a href='https://github.com/officialfm/api/blob/master/sections/rate_limiting.md' target='_blank'>https://github.com/officialfm/api/blob/master/sections/rate_limiting.md</a><br/><br/>
+                
+                I have never reached the limit myself but in case you need it.<br/><br/>
+                
+                
+                
+                
+                
+                
+              </p>
+                
+            </div> 
+            
+            <div class="page">
+            
+               <h2>Mixing playlists</h2><br/>
+                
+                <p>
+                
+                You can mix together multiple playlist of different type into a single playlist.<br/><br/>
+
+                Couple of examples:<br/><br/>
+                
+<div class="code"><pre><code>&lt;ul id='playlist5m'&gt;
+    &lt;li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' data-dlink data-thumb='../media/audio/1/_A_Bright_And_Hopeful_Future.jpg'&gt;&lt;a class='playlistNonSelected' href='#'&gt;Tim McMorris - A Bright And Hopeful Future&lt;/a&gt;&lt;/li&gt;
+    &lt;li class= 'playlistItem' data-type='podcast' data-path='http://robertkelly.libsyn.com/rss' data-dlink data-thumb='media/default_artwork/podcast/01.jpg'&gt;&lt;a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'&gt;&lt;img src='media/data/url.png' alt = 'purchase'/&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/computer-magic' data-dlink data-thumb='media/default_artwork/soundcloud/01.jpg'/&gt;
+    &lt;li class= 'playlistItem' data-type='ofm_single' data-path='GGXE' data-thumb='media/default_artwork/ofm_single/01.jpg'&gt;&lt;/li&gt;
+    &lt;li class= 'playlistItem' data-type='ofm_playlist' data-dlink data-path='1rp7' data-thumb='media/default_artwork/ofm_playlist/01.jpg'&gt;&lt;/li&gt;
+    &lt;li class= 'playlistItem' data-type='ofm_project' data-dlink data-path='edB6' data-plink='http://codecanyon.net/user/Tean/portfolio' data-thumb='media/default_artwork/ofm_project/01.jpg'&gt;&lt;/li&gt;
+    &lt;li class= 'playlistItem' data-type='youtube_single' data-path='opL4oe62XL8' data-plink='http://www.google.com' data-thumb='media/default_artwork/yt_single/01.jpg'&gt;&lt;/li&gt;
+    &lt;li class= 'playlistItem' data-type='youtube_playlist' data-path='PLE0311B1CFA360F55' data-thumb='media/default_artwork/yt_playlist/01.jpg'&gt;&lt;/li&gt;
+   &lt;li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'/&gt;
+    &lt;li class= 'playlistItem' data-type='folder' data-path='../media/audio/1/' data-thumb='media/default_artwork/folder1/01.jpg'/&gt;
+ &lt;/ul&gt;
+ 
+ &lt;ul id='playlist6m'&gt;
+    &lt;li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/an21/favorites' data-dlink data-thumb='media/default_artwork/soundcloud/01.jpg' data-plink='http://codecanyon.net/user/Tean/portfolio'/&gt;
+    &lt;li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7' data-thumb='media/default_artwork/ofm_playlist/01.jpg'&gt;&lt;/li&gt;
+    &lt;li class= 'playlistItem' data-type='ofm_project' data-path='edB6' data-thumb='media/default_artwork/ofm_project/01.jpg' data-dlink&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+ 
+ &lt;ul id='playlist4m'&gt;
+    &lt;li class= "playlistItem" data-type='folder' data-path='../media/audio/1/'/&gt; 
+    &lt;li class= "playlistItem" data-type='folder' data-path='../media/audio/2/'/&gt;
+ &lt;/ul&gt;</pre></code></div><br/><br/>
+                
+                </p>
+                
+            </div>
+            
+            <div class="page">
+                
+                <h2>Using examples with popup</h2><br/>
+                
+                <p>
+                
+                	<strong>Uninterupted music playback across webpage</strong><br/><br/>
+                    
+                    There are a couple of method to achieve uninterupted music playback across webpage, here is a good read about it:<br/><br/>
+                    
+                    <a href='https://groups.google.com/forum/#!msg/jplayer/Fa1NI2XUeh4/_4vlrbwZ2x4J' target='_blank'>https://groups.google.com/forum/#!msg/jplayer/Fa1NI2XUeh4/_4vlrbwZ2x4J</a><br/><br/>
+                
+                	There are examples which have ability to open the player in a new window and have uninterupted music playback (since player is sitting in a completely new isolated window from enything else).<br/><br/>
+                
+                	Demo examples which have popup implemented are <strong>index_classic_popup.html</strong> and <strong>index_popup.html</strong>, but basically any example can have this feature.<br/><br/>
+                    
+                    <font style="color:red; font-weight:bold;">You need to test examples with popup online or on local server because of browser security!</font><br/><br/>
+                    
+                    It will work offline in some browsers but not in others.<br/><br/>
+                    
+                    
+                    Popup code is located in <font style="color:red; font-weight:bold;">jquery.html5audio.func.js</font>:<br/><br/>
+                    
+<div class="code"><pre><code>/* START POPUP RELATED CODE */
+
+function notify_popup(){//called from popup window when popup window has opened!
+	//console.log('notify_popup');
+	if(hap_popup && hap_popup.initPopup != undefined){//dont do anything if we are not going to be able to open popup!
+		if(hap_settings.autoUpdateWindowData)updatePlayerData();
+	
+		if(hap_players && hap_players[0]){
+			if(hap_players[0].destroyPlaylist != undefined)hap_players[0].destroyPlaylist();
+		}
+		$('#componentWrapper').css('display','none');//hide player in parent page (we cant clear html because we dont dynamically append componentWrapper html with jquery! Only if we save the player html prior to this action so we can reinstantiate it later.)
+		
+		try {
+			hap_popup.initPopup(hap_settings);
+			$('#popup_open').css('display','none');
+		}catch(e){
+			alert('parent notify_popup error: ' + e.message);
+			return false;
+		}
+	}
+}
+...</pre></code></div><br/><br/>
+                    
+                    To make some other demo in a popup, here are the differences (looking at example <strong>index_popup.html</strong>):<br/><br/>
+                    
+                    1. in <strong>index_popup.html</strong> there is a button which launches popup window: <br/><br/>
+                    
+<div class="code"><pre><code>&lt;!-- POPUP LAUNCHER --&gt;        
+&lt;a id='popup_open' href="#"&gt;&lt;img src='media/data/icons/set1/popup_open.png' alt = 'popup_open'/&gt;&lt;/a&gt;</pre></code></div><br/><br/>
+
+                    
+                    2. Also the css for the button (<strong>html5audio_popup.css</strong>):<br/><br/>
+                    
+<div class="code"><pre><code>#popup_open{
+	position:relative;
+	float:left;
+	clear:both;
+	margin:10px;
+	display:none;
+}</pre></code></div><br/><br/>
+                    
+                    3. Every popup demo has its counterpart popup page, in this case <strong>index_popup.html</strong> is linked to open <strong>popup.html</strong>, while <strong>index_classic_popup.html</strong> is linked to <strong>popup2.html</strong><br/><br/>
+                    
+                    Make sure you copy content of that page (popup.html) and edit properly if some of the settings have changed depending on which demo example you use.<br/><br/>
+                   
+                
+                </p>
+                
+            </div>
+            
+            <div class="page">
+                
+                <h2>Using examples with circle seekbar</h2><br/>
+                
+                <p>
+                
+                Demo examples <strong>index_circle.html</strong> and <strong>index_circle_multiple.html</strong> use circular seekbar which uses canvas in html5 capable browsers to draw the seekbar itself.<br/><br/> 
+                
+                This of course means there is a flash backup for browsers that do no support canvas.<br/><br/> 
+                
+                The important things here are:<br/><br/> 
+                
+                1. How the circle is constructed:<br/><br/> 
+                
+                Relevant html code from <font style="color:red; font-weight:bold;">index_circle_multiple.html</font>:<br/><br/> 
+                
+<div class="code"><pre><code>&lt;div id="componentWrapper" <font style="color:red; font-weight:bold;">class="hap_circle"</font>&gt;
+ 
+     <font style="color:red;">&lt;div class="circlePlayer" data-strokeSize="26" data-tolerance="10" data-offOpacity="1" data-onOpacity="1"&gt;
+         &lt;div class="player_progress_tooltip"&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+         &lt;!-- html5 circle --&gt; 
+         &lt;canvas class="play_canvas" width="160" height="160" data-bgcolor='#ffffff'&gt;&lt;/canvas&gt;
+         &lt;canvas class="load_canvas" width="160" height="160" data-bgcolor='#66ccff'&gt;&lt;/canvas&gt;
+     &lt;/div&gt;</font>
+     
+     &lt;div class="playlistHolder"&gt;
+         &lt;div class="componentPlaylist"&gt;
+             &lt;div class="playlist_inner"&gt;
+                &lt;!-- playlist items are appended here! --&gt; 
+             &lt;/div&gt;
+         &lt;/div&gt;
+     &lt;/div&gt;
+     
+&lt;/div&gt;</pre></code></div><br/><br/>
+
+				<font style="color:red; font-weight:bold;">class="hap_circle"</font> is what distinguishes this player as 'circle' one.<br/><br/> 
+                
+                As you can see there are some settings as well:<br/><br/> 
+                
+                <strong>data-strokeSize</strong> - size of the seekbar/loadbar<br/> 
+                <strong>data-tolerance</strong> - this is space between a circle itself and the inner pause/play button, so that seeking inadvertently doesnt trigger pause/play and vice/versa (this number can be 0 and above, but not so high that it affects pause/play button area).<br/> 
+                <strong>data-offOpacity</strong> - opacity of circle when mouse is outside circle area<br/> 
+                <strong>data-onOpacity</strong> - opacity of circle when mouse is over circle area<br/> 
+                <strong>data-bgcolor</strong> on both play_canvas and load_canvas - color of seekbar/loadbar<br/> 
+                <strong>canvas width and height</strong> attributes which need to be set in here, NOT in css! - width and height of the circle<br/><br/> 
+                
+                <br/>
+                
+                Relevant code in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font>:<br/><br/> 
+                
+<div class="code"><pre><code>if(hap_circle){
+    
+    var load_canvas = componentWrapper.find('.load_canvas').css('cursor','pointer');
+    var play_canvas = componentWrapper.find('.play_canvas');
+    var circlePlayer = componentWrapper.find('.circlePlayer');
+    var offOpacity = parseFloat(circlePlayer.attr('data-offOpacity'),10);
+    var onOpacity = parseFloat(circlePlayer.attr('data-onOpacity'),10);
+    if(isMobile)offOpacity=onOpacity=1;
+    
+    //needed to pass to flash
+    var circle_settings = {flash_id: settings.flash_id,
+                            strokeSize:parseInt(circlePlayer.attr('data-strokeSize'),10), 
+                            play_color:play_canvas.attr('data-bgcolor'), 
+                            load_color:load_canvas.attr('data-bgcolor'),
+                            tolerance:parseInt(circlePlayer.attr('data-tolerance'),10), 
+                            offOpacity: offOpacity, 
+                            onOpacity:onOpacity, 
+                            circleWidth:load_canvas.width(),
+                            circleHeight:load_canvas.height()};
+    
+    if(canvasSupport){
+
+        var strokeSize = circle_settings.strokeSize;//seekbar size 
+        var play_color = circle_settings.play_color, load_color = circle_settings.load_color;//loading bar color, playbar color
+        
+        var ctx = load_canvas[0].getContext('2d');
+        var ctx2 = play_canvas[0].getContext('2d');
+        
+        var circ = Math.PI * 2;
+        var quart = Math.PI / 2;
+        var circleWidth = circle_settings.circleWidth; //canvas width and height needs to be the same!
+        var circleHeight = circle_settings.circleHeight; 
+        var circleRadius = circleWidth/2;///same as circleHeight/2;
+        var playBtnRadius = circleRadius - strokeSize;
+        var tolerance = settings.tolerance;//space between seekbar and toggle button in which we will not register click! (so it makes it easier to seek/toggle without accidentally touching one or another. Value must be 0 or above, but below playBtnRadius on which we want to click)
+        var toggleValue;//value from center point to detect click on toggle (used for tolerance var)
+        var _isCircleSeek = false;//seek vs toggle
+        var last_circle_percentage = 0;
+        
+        load_canvas.bind(_downEvent,function(e){
+            if(isCircleToggle(e)){
+                _isCircleSeek = false;
+            }else{
+                _isCircleSeek = true;
+            }
+            //console.log(_isCircleSeek);
+            _onDragStartSeek(e);
+            return false;		
+        });	
+        var player_progress = load_canvas;
+
+    }else{//flash 
+        load_canvas.remove();
+        play_canvas.remove();
+    }
+}else{
+    var player_progress = componentWrapper.find('.player_progress').css('cursor', 'pointer').bind(_downEvent,function(e){
+        _onDragStartSeek(e);
+        return false;		
+    });
+}</pre></code></div><br/><br/>
+
+				The important thing to note is that not all the settings can be passed to flash and when you change the html5 canvas circle size, flash will
+not completely adjust itself, you will have to do some editing in flash code because drawing in actionscript works somewhat differently that in javascipt.<br/><br/>
+					
+                Also, you have to manually publish flash movie again if you want to change its size from Adobe Flash Professional program. <br/><br/>   
+                    
+				<font style="color:red; font-weight:bold;">flash_circle</font> folder in source files contains the code for flash seekbar.<br/><br/>
+
+				Also, in <font style="color:red; font-weight:bold;">html5audio_default.css</font> there is following code for flash circle:<br/><br/>
+                
+<div class="code"><pre><code>/* flash circle backup */
+.circleMain{
+	position:absolute;
+	width:160px;
+	height:160px;
+	outline:none;
+	display:none;
+} </pre></code></div><br/><br/>              
+
+                
+                </p>
+                
+            </div>
+            
+            <div class="page">
+                
+                <h2>Special features</h2><br/>
+                
+                <p>
+                
+                Some of the special features are:<br/><br/> 
+                
+                1. <font style="color:red; font-weight:bold;">auto hide volume with timeout</font> (this feature appears in examples like <strong>index_classic_multiple.html</strong>)<br/><br/> 
+                
+                It works on rollover for desktop while on mobile you have to click to open/close the volume itself. This means as well that on desktop when you click on volume button it will mute/unmute volume, while on mobile click (touch) on this button is reserved for opening/closing volume itself.<br/><br/> 
+                
+                Relevant html code:<br/><br/> 
+                
+<div class="code"><pre><code>&lt;div class="player_volume_wrapper"&gt;
+     &lt;div class="player_volume"&gt;&lt;img src='media/data/icons/set2/volume.png' alt='player_volume'/&gt;&lt;/div&gt;
+     &lt;div class="volume_seekbar" data-orientation="vertical" <font style="color:red; font-weight:bold;">data-autoHide="3000"</font>&gt;
+         &lt;div class="volume_bg"&gt;&lt;/div&gt;
+         &lt;div class="volume_level"&gt;&lt;/div&gt;
+         &lt;div class="player_volume_tooltip"&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+      &lt;/div&gt;
+ &lt;/div&gt;</pre></code></div><br/><br/>
+ 
+ 
+ 				Relevant code in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font>:<br/><br/> 
+                
+<div class="code"><pre><code>if(volume_seekbar.attr('data-autoHide') != undefined){//show volume seekbar on rollover (click on mobile)
+    volume_seekbar_autoHide = true;
+    
+    var vol_seekbar_opened=false;//for mobile (we cant use rollover to open vol seekbar and click on vol toggle btn to toggle mute/unmute, so we use vol toggle btn just to open/close vol seekbar on mobile)
+    var volumeTimeoutID, volumeTimeout = parseInt(volume_seekbar.attr('data-autoHide'),10);//hide volume seekbar
+    
+    function hideVolume(){
+        if(volumeTimeoutID) clearTimeout(volumeTimeoutID);
+        volume_seekbar.css('display','none');
+        vol_seekbar_opened=false;
+    }
+    
+    function toggleVolumeMobile(){
+        if(volumeTimeoutID) clearTimeout(volumeTimeoutID);
+        if(!vol_seekbar_opened){
+            volume_seekbar.css('display','block');
+            vol_seekbar_opened=true;
+            //additional hide volume on timer 
+            volumeTimeoutID = setTimeout(hideVolume,volumeTimeout);	
+        }else{
+            volume_seekbar.css('display','none');
+            vol_seekbar_opened=false;
+        }
+    }
+    
+    if(!isMobile){
+        player_volume.bind('mouseover', function(){
+            if(!componentInited) return false;
+            //show volume seekbar
+            if(volumeTimeoutID) clearTimeout(volumeTimeoutID);
+            volume_seekbar.css('display','block');
+            vol_seekbar_opened=true;
+            return false;
+        }).bind('mouseout', function(){
+            if(!componentInited) return false;
+            if(volumeTimeoutID) clearTimeout(volumeTimeoutID);
+            volumeTimeoutID = setTimeout(hideVolume,volumeTimeout);
+            return false;
+        });
+    }
+}</pre></code></div><br/><br/><br/><br/> 
+ 
+ 
+ 				2. <font style="color:red; font-weight:bold;">Volume orientation.</font> Volume can be vertical or horizontal. By default, volume orientation is horizontal, and in that case <strong>data-orientation attribute</strong> is not needed.<br/><br/> 
+                
+<div class="code"><pre><code>&lt;div class="player_volume_wrapper"&gt;
+     &lt;div class="player_volume"&gt;&lt;img src='media/data/icons/set2/volume.png' alt='player_volume'/&gt;&lt;/div&gt;
+     &lt;div class="volume_seekbar" <font style="color:red; font-weight:bold;">data-orientation="vertical"</font> data-autoHide="3000"&gt;
+         &lt;div class="volume_bg"&gt;&lt;/div&gt;
+         &lt;div class="volume_level"&gt;&lt;/div&gt;
+         &lt;div class="player_volume_tooltip"&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+      &lt;/div&gt;
+ &lt;/div&gt;</pre></code></div><br/><br/><br/><br/>
+ 
+ 
+ 
+ 				3. <font style="color:red; font-weight:bold;">Playlist locked</font> (this feature appears in examples like <strong>index_draggable_2players.html</strong> and <strong>index_draggable_2players2.html</strong>)<br/><br/> 
+                
+                The point is that playlist items (together with playlist icons like download, url, remove) in top selector are not clickable until you drag them down in the bottom player and then they became clickable.<br/><br/>
+ 
+                 Relevant html code:<br/><br/> 
+                
+<div class="code"><pre><code>&lt;!-- player code --&gt;   
+&lt;!-- we have removed player from this instance because we wont play music with this instance, we will just use it to process playlist urls like soundcloud, youtube etc... --&gt;     
+&lt;div id="componentWrapper"&gt;
+      
+     &lt;div class="playlistHolder" <font style="color:red; font-weight:bold;">data-playlistLocked</font>&gt;
+         &lt;div class="componentPlaylist"&gt;
+             &lt;div class="playlist_inner"&gt;
+                &lt;!-- playlist items are appended here! --&gt; 
+             &lt;/div&gt;
+         &lt;/div&gt;
+         &lt;!-- preloader --&gt; 
+         &lt;div class="preloader"&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+&lt;/div&gt;</pre></code></div><br/><br/>
+ 
+                
+                </p>
+                
+            </div>
+            
+            <div class="page">
+                
+                <h2>Using download</h2><br/>
+                
+                <p>
+                
+                There is a <font style="color:red; font-weight:bold;">global</font> download and <font style="color:red; font-weight:bold;">individual</font> download.<br/><br/>
+                
+                We are looking at example <strong>index_popup.html</strong>.
+                
+                Global download is marked in <font style="color:green; font-weight:bold;">green</font>, and individual in <font style="color:red; font-weight:bold;">red.</font><br/><br/>
+                
+                <img src='assets/dw.jpg' alt=''/><br/><br/>
+                
+                Basically, global download exist in a form of a button, and its linked to this element in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font>: <br/><br/>
+                
+<div class="code"><pre><code>&lt;!-- download --&gt;
+&lt;div class="player_download"&gt;&lt;img src='media/data/icons/set1/download.png' alt="player_download"/&gt;&lt;/div&gt;</pre></code></div><br/><br/>
+                
+                It will toggle visibility of this element as active playlist item gets changed and only downloads active playlist item.<br/><br/>
+                
+                Individual download can exist for every playlist item.<br/><br/>
+                
+                Playlist items look like this (<strong>download default</strong>):<br/><br/>
+                
+<div class="code"><pre><code>&lt;ul id='playlist0'&gt;
+	&lt;li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' <font style="color:red; font-weight:bold;">data-download</font> &gt;&lt;a class='playlistNonSelected' href='#'&gt;Tim McMorris - A Bright And Hopeful Future&lt;/a&gt;&lt;/li&gt;  
+	 
+	&lt;li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast' <font style="color:red; font-weight:bold;">data-download</font> &gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/sets/magix-revolta-2/' <font style="color:red; font-weight:bold;">data-download</font> &gt;&lt;/li&gt;
+	 
+	&lt;li class= 'playlistItem' data-type='youtube_single' data-path='opL4oe62XL8'&gt;&lt;/li&gt;
+
+	&lt;li class= 'playlistItem' data-type='youtube_playlist' data-path='PLE0311B1CFA360F55'&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='ofm_single' data-path='GGXE' <font style="color:red; font-weight:bold;">data-download</font> &gt;&lt;/li&gt;  
+ 
+	&lt;li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7' <font style="color:red; font-weight:bold;">data-download</font> &gt;&lt;/li&gt; 
+ 
+	&lt;li class= 'playlistItem' data-type='ofm_project' data-path='edB6' <font style="color:red; font-weight:bold;">data-download</font> &gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='folder' data-path='../media/audio/3/' <font style="color:red; font-weight:bold;">data-download</font> &gt;&lt;/li&gt;
+&lt;/ul&gt;</pre></code></div><br/><br/>
+
+				As you can see there is a <font style="color:red; font-weight:bold;">data-download</font> attribute.<br/><br/> 
+                
+                When you add this attribute, playlist item will get global download. <br/><br/>
+                
+                It will use playlist item mp3 path for the global download.<br/><br/>
+                
+                <font style="color:red; font-weight:bold;">Also, notice youtube does not have this attribute! </font><br/><br/>
+                
+                That is because download is not available for youtube. But you can use custom download links for youtube (see below).<br/><br/>
+                
+                You can also do this (<strong>download custom</strong>):<br/><br/>
+                
+<div class="code"><pre><code>&lt;ul id='playlist0'&gt;
+	&lt;li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' <font style="color:red; font-weight:bold;">data-download='path/to/custom/local.extension'</font>&gt;&lt;a class='playlistNonSelected' href='#'&gt;Tim McMorris - A Bright And Hopeful Future&lt;/a&gt;&lt;/li&gt;  
+	 
+	&lt;li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast' <font style="color:red; font-weight:bold;">data-download='path/to/custom/podcast.extension'</font>&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/sets/magix-revolta-2/' <font style="color:red; font-weight:bold;">data-download='path/to/custom/soundcloud.extension'</font>&gt;&lt;/li&gt;
+	 
+	&lt;li class= 'playlistItem' data-type='youtube_single' data-path='opL4oe62XL8' <font style="color:red; font-weight:bold;">data-download='path/to/custom/youtube_single.extension'</font>&gt;&lt;/li&gt;
+
+	&lt;li class= 'playlistItem' data-type='youtube_playlist' data-path='PLE0311B1CFA360F55' <font style="color:red; font-weight:bold;">data-download='path/to/custom/youtube_playlist.extension'</font>&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='ofm_single' data-path='GGXE' <font style="color:red; font-weight:bold;">data-download='path/to/custom/ofm_single.extension'</font>&gt;&lt;/li&gt;  
+ 
+	&lt;li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7' <font style="color:red; font-weight:bold;">data-download='path/to/custom/ofm_playlist.extension'</font>&gt;&lt;/li&gt; 
+ 
+	&lt;li class= 'playlistItem' data-type='ofm_project' data-path='edB6' <font style="color:red; font-weight:bold;">data-download='path/to/custom/ofm_project.extension'</font>&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='folder' data-path='../media/audio/3/' <font style="color:red; font-weight:bold;">data-download='path/to/custom/folder.extension'</font>&gt;&lt;/li&gt;
+&lt;/ul&gt;</pre></code></div><br/><br/> 
+
+				This will use custom path you specify for the global download.<br/><br/><br/><br/> 
+                
+                
+                
+                To add individual download (called <strong>dlink</strong>), add <font style="color:red; font-weight:bold;">data-dlink</font> attribute:<br/><br/>
+                
+<div class="code"><pre><code>&lt;ul id='playlist0'&gt;
+	&lt;li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' <font style="color:red; font-weight:bold;">data-dlink</font>&gt;&lt;a class='playlistNonSelected' href='#'&gt;Tim McMorris - A Bright And Hopeful Future&lt;/a&gt;&lt;/li&gt;  
+	 
+	&lt;li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast' <font style="color:red; font-weight:bold;">data-dlink</font>&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/sets/magix-revolta-2/' <font style="color:red; font-weight:bold;">data-dlink</font>&gt;&lt;/li&gt;
+	 
+	&lt;li class= 'playlistItem' data-type='youtube_single' data-path='opL4oe62XL8'&gt;&lt;/li&gt;
+
+	&lt;li class= 'playlistItem' data-type='youtube_playlist' data-path='PLE0311B1CFA360F55'&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='ofm_single' data-path='GGXE' <font style="color:red; font-weight:bold;">data-dlink</font>&gt;&lt;/li&gt;  
+ 
+	&lt;li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7' <font style="color:red; font-weight:bold;">data-dlink</font>&gt;&lt;/li&gt; 
+ 
+	&lt;li class= 'playlistItem' data-type='ofm_project' data-path='edB6' <font style="color:red; font-weight:bold;">data-dlink</font>&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='folder' data-path='../media/audio/3/' <font style="color:red; font-weight:bold;">data-dlink</font>&gt;&lt;/li&gt;
+&lt;/ul&gt;</pre></code></div><br/><br/> 
+
+                This will create download icon for every playlist item and will use playlist item mp3 path for the individual download.<br/><br/> 
+                
+                <font style="color:red; font-weight:bold;">Youtube again does not have this attribute!</font><br/><br/> 
+                
+                But you can use custom download links for youtube (see below).<br/><br/> 
+                
+                You can also do this (<strong>download custom</strong>):<br/><br/> 
+                
+<div class="code"><pre><code>&lt;ul id='playlist0'&gt;
+	&lt;li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/local.extension'</font>&gt;&lt;a class='playlistNonSelected' href='#'&gt;Tim McMorris - A Bright And Hopeful Future&lt;/a&gt;&lt;/li&gt;  
+	 
+	&lt;li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/podcast.extension'</font>&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/sets/magix-revolta-2/' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/soundcloud.extension'</font>&gt;&lt;/li&gt;
+	 
+	&lt;li class= 'playlistItem' data-type='youtube_single' data-path='opL4oe62XL8' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/youtube_single.extension'</font>&gt;&lt;/li&gt;
+
+	&lt;li class= 'playlistItem' data-type='youtube_playlist' data-path='PLE0311B1CFA360F55' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/youtube_playlist.extension'</font>&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='ofm_single' data-path='GGXE' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/ofm_single.extension'</font>&gt;&lt;/li&gt;  
+ 
+	&lt;li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/ofm_playlist.extension'</font>&gt;&lt;/li&gt; 
+ 
+	&lt;li class= 'playlistItem' data-type='ofm_project' data-path='edB6' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/ofm_project.extension'</font>&gt;&lt;/li&gt; 
+	 
+	&lt;li class= 'playlistItem' data-type='folder' data-path='../media/audio/3/' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/folder.extension'</font>&gt;&lt;/li&gt;
+&lt;/ul&gt; </pre></code></div><br/><br/>                
+                
+                This will use custom path you specify for the download.<br/><br/><br/><br/><br/><br/> 
+                
+                
+                
+                <font style="color:red; font-weight:bold;">Special cases:</font><br/><br/>
+                
+                Here we have a playlist item which has both <strong>data-dlink</strong> attribute on 'li' tag and <strong>dlink</strong> icon added manually:<br/><br/>
+                
+<div class="code"><pre><code>&lt;li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' <font style="color:red; font-weight:bold;">data-dlink='path/to/custom/local.extension'</font>&gt;&lt;a class='playlistNonSelected' href='#'&gt;Tim McMorris - A Bright And Hopeful Future&lt;/a&gt;<font style="color:red; font-weight:bold;">&lt;a class='dlink' href='#' data-dlink='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3'&gt;&lt;img src='../media/video/data/dl.png' width='12' height='13' alt = ''/&gt;&lt;/a&gt;</font>&lt;/li&gt;</pre></code></div><br/><br/> 
+
+				In this case 'li' dlink attribute will be overwritten by inner 'a' dlink!<br/><br/>
+                
+                Of course playlist item can have both download and dlink at the same time:<br/><br/>
+                
+                <div class="code"><pre><code>&lt;li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' <font style="color:red; font-weight:bold;">data-download data-dlink</font>&gt;&lt;a class='playlistNonSelected' href='#'&gt;Tim McMorris - A Bright And Hopeful Future&lt;/a&gt;&lt;a class='dlink' href='#' data-dlink='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3'&gt;&lt;/li&gt;</pre></code></div><br/><br/>
+                   
+                Adding download and dlink paths for data formatted tracks:<br/><br/>
+                
+<div class="code"><pre><code>var trackList2_mixed = [
+	{type: 'local', mp3: '../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3', ogg: '../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg', title: 'Tim McMorris - A Bright And Hopeful Future', thumb: '../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.jpg', <font style="color:red; font-weight:bold;">download:true</font>}, 
+	{type: 'soundcloud', path: 'http://soundcloud.com/trance/trance-single-138-bpm-anvil', <font style="color:red; font-weight:bold;">download:true</font>}, 
+	{type: 'podcast', path: 'http://www.npr.org/rss/podcast.php?id=510008', <font style="color:red; font-weight:bold;">download:true</font>}, 
+	{type: 'youtube_single', path: 'opL4oe62XL8'}, 
+	{type: 'youtube_playlist', path: 'PLE0311B1CFA360F55'}, 
+	{type: 'ofm_single', path: 'D4lw', <font style="color:red; font-weight:bold;">download:true</font>}, 
+	{type: 'ofm_playlist', path: '1rp7', <font style="color:red; font-weight:bold;">download:true</font>}, 
+	{type: 'ofm_project', path: 'edB6', <font style="color:red; font-weight:bold;">download:true</font>}, 
+	{type: 'folder', path: '../media/audio/3/', <font style="color:red; font-weight:bold;">download:true</font>}
+];
+
+var trackList2_mixed = [
+	{type: 'local', mp3: '../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3', ogg: '../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg', title: 'Tim McMorris - A Bright And Hopeful Future', thumb: '../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.jpg', <font style="color:red; font-weight:bold;">download:'path/to/custom/local.extension'</font>}, 
+	{type: 'soundcloud', path: 'http://soundcloud.com/trance/trance-single-138-bpm-anvil', <font style="color:red; font-weight:bold;">download:'path/to/custom/soundcloud.extension'</font>}, 
+	{type: 'podcast', path: 'http://www.npr.org/rss/podcast.php?id=510008', <font style="color:red; font-weight:bold;">download:'path/to/custom/podcast.extension'</font>}, 
+	{type: 'youtube_single', path: 'opL4oe62XL8', <font style="color:red; font-weight:bold;">download:'path/to/custom/youtube_single.extension'</font>},
+	{type: 'youtube_playlist', path: 'PLE0311B1CFA360F55', <font style="color:red; font-weight:bold;">download:'path/to/custom/youtube_playlist.extension'</font>},
+	{type: 'ofm_single', path: 'D4lw', <font style="color:red; font-weight:bold;">download:'path/to/custom/ofm_single.extension'</font>},
+	{type: 'ofm_playlist', path: '1rp7', <font style="color:red; font-weight:bold;">download:'path/to/custom/ofm_playlist.extension'</font>},
+	{type: 'ofm_project', path: 'edB6', <font style="color:red; font-weight:bold;">download:'path/to/custom/ofm_project.extension'</font>},
+	{type: 'folder', path: '../media/audio/3/', <font style="color:red; font-weight:bold;">download:'path/to/custom/folder.extension'</font>} 
+];</pre></code></div><br/><br/> 
+
+			Both download and dlink example:<br/><br/> 
+
+<div class="code"><pre><code>var trackList2_mixed = [
+	{type: 'ofm_single', path: 'D4lw', <font style="color:red; font-weight:bold;">download:'path/to/custom/ofm_single.extension'</font>, <font style="color:red; font-weight:bold;">dlink:true</font>},
+	{type: 'ofm_playlist', path: '1rp7', <font style="color:red; font-weight:bold;">download:'path/to/custom/ofm_playlist.extension'</font>, <font style="color:red; font-weight:bold;">dlink='path/to/custom/download'</font>},
+	{type: 'ofm_project', path: 'edB6', <font style="color:red; font-weight:bold;">download:'path/to/custom/ofm_project.extension'</font>}
+];</pre></code></div><br/><br/>                
+                
+               <br/><br/>
+               
+               For <font style="color:red; font-weight:bold;">soundcloud</font>, there is a <font style="color:red; font-weight:bold;">downloadable</font> property available for each track.<br/><br/> 
+               
+               This is viewable when every track is processed in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> in <strong>soundCloudTrackData</strong> function.<br/><br/> 
+              
+               This means that even if you specify <strong>true</strong> for download on some soundcloud tracks, download will not be available.<br/><br/> 
+               
+               The only way to have download is such case is to specify custom download path (just like for youtube).<br/><br/> 
+                
+                
+                </p>
+                
+            </div>
+            
+            <div class="page">
+                
+                <h2>Detecting sound error</h2><br/>
+                
+                <p>
+                
+                If playback comes to a sound which cannot be played (for whatever reason), lets say you are missing a audio file on your server, the playback will stop.<br/><br/>
+                
+                To detect such feature (and lets say automatically skip to next track) would be quite tricky (of course making it work on all browsers/platforms), so this is not currently implemented.<br/><br/>
+                
+                If you feel like coding it here are a few things that might help.<br/><br/>
+                
+                First there is html5 audio code (for browsers that support html5 audio) and flash backup (for browsers that dont).<br/><br/>
+                
+                Then there is youtube code for playing youtube (which is comletely different than html5 audio code), and comes again for both browsers that support html5 and the ones that dont.<br/><br/>
+                
+                But lets forget about flash and youtube for now, and just look at html5 audio code (<a href='http://www.w3schools.com/html/html5_audio.asp' target='_blank'>http://www.w3schools.com/html/html5_audio.asp</a>):<br/><br/>
+                
+                In <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> I have attached some events in red at the bottom (<a href='http://www.w3schools.com/tags/ref_av_dom.asp' target='_blank'>http://www.w3schools.com/tags/ref_av_dom.asp</a>):<br/><br/>
+                
+                
+<div class="code"><pre><code>if(useHtml5Audio){
+    if(!html5_audio_created){
+        
+        var audioCode='';
+        if(autoLoad){
+            audioCode += '&lt;audio class="hap_audio_cont" preload="auto"&gt;';
+        }else{
+            audioCode += '&lt;audio class="hap_audio_cont" preload="none"&gt;';
+        }
+        audioCode += '&lt;source src="'+mp3+'" type="audio/mpeg" /&gt;';
+        audioCode += '&lt;source src="'+ogg+'" type="audio/ogg" /&gt;';
+        audioCode += '&lt;/audio&gt;';
+        
+        hap_audioHolder.html(audioCode);
+        hap_audio = hap_audioHolder.find('.hap_audio_cont');//get player reference
+        audioUp2Js = hap_audio[0];
+        audioUp2Js.volume = _defaultVolume;
+        //console.log(hap_audio, audioUp2Js);
+        
+        /*if(isIOS){
+            audioUp2Js.src = mediaPath;
+            audioUp2Js.load();
+        }
+        if(isAndroid){
+            audioUp2Js.play();
+        }*/
+    
+        if(autoPlay){
+            audioUp2Js.load();//important in some cases, especially mobiles!
+            audioUp2Js.play();
+        }
+    
+        html5_audio_created = true;
+    }else{
+        
+        if(mp3Support){
+            audioUp2Js.src = mp3;
+        }else if(oggSupport){
+            audioUp2Js.src = ogg;
+        }
+        audioUp2Js.load();
+        audioUp2Js.play();
+    }
+    
+    hap_audio.bind('ended', function(e){
+        //console.log('ended');
+        _onFinish();
+    }).bind('pause', function(e){
+        //console.log('pause');
+        _onPause();
+    }).bind('play', function(e){
+        //console.log('play');
+        if(dataIntervalID)clearInterval(dataIntervalID);
+        dataIntervalID=setInterval(hap_trackData, dataInterval);
+        
+        _onPlay();
+    }).bind('canplay', function(e){
+        //console.log('canplay', audioUp2Js.currentTime);
+        if(lastSeekPercent){
+            if(audioUp2Js.seekable && audioUp2Js.seekable.length &gt; 0){
+                audioUp2Js.currentTime= lastSeekPercent * audioUp2Js.duration;
+            }
+            lastSeekPercent=null;
+        }	
+    }).bind('canplaythrough', function(e){
+        //console.log('canplaythrough');
+    }).bind('loadedmetadata', function(e){
+        //console.log('loadedmetadata: ', audioUp2Js.duration);
+        //console.log(audioUp2Js.duration);<font style="color:red; font-weight:bold;">
+    }).bind('error', function(e){
+        //console.log('error: ', e);
+    }).bind('abort', function(e){
+        //console.log('abort: ', e);
+    }).bind('stalled', function(e){
+        //console.log('stalled: ', e);
+    }).bind('suspend', function(e){
+        //console.log('suspend: ', e);
+    });</font>
+    
+    if(dataIntervalID)clearInterval(dataIntervalID);
+    dataIntervalID=setInterval(hap_trackData, dataInterval);
+            
+}</pre></code></div><br/><br/>
+
+				1. Now if you deliberately remove sound which needs to be played from your server and run this in some browsers you will get <strong>error</strong> event, in other <strong>stalled</strong> event while in some browsers no event will not fire.<br/><br/>
+                
+                2. I have seen <strong>stalled</strong> event fire before in some other cases like when sound is buffering, which is not what we are here trying to detect.<br/><br/>
+                
+                3. Some of these audio events sometimes simply do not fire (especially on mobile phones).<br/><br/>
+                
+                Considering all this its quite tricky to detect this and I havent implemented this feature in my code so far.<br/><br/>
+                
+                </p>
+                
+            </div>
+                    
+             <div class="page">
+            
+               <h2>Multiple player instances</h2><br/>
+                
+                <p>
+                	
+                    Demo examples like <strong>index_full2.html</strong> and <strong>index_classic_multiple.html</strong> (plus some others as well) already have multiple players implemented in the same page.<br/><br/>
+                    
+                    <font style="color:red; font-weight:bold;">	This does not include</font> examples like <strong>index_wrap_multi.html</strong> and <strong>index_wrap_multi2.html</strong> which are completely different beasts and the most complicated ones.<br/><br/>
+                    
+                    Making some other demo example into multiple instances isnt the easiest thing especially since some examples contain some special features.<br/><br/>
+                    
+                    On the example of <font style="color:red; font-weight:bold;">index_classic_multiple.html</font>, I will mention the following:<br/><br/>
+                    
+                    1. Every player has html code (but this obvioulsy depends on the player look itself):<br/><br/>
+                    
+<div class="code"><pre><code>&lt;div id="componentWrapper"&gt;
+
+     &lt;div class="controls_toggle"&gt;&lt;img src='media/data/icons/set2/play.png' alt='controls_toggle'/&gt;&lt;/div&gt;
+     
+     &lt;div class="player_mediaTime_current"&gt;00:00&lt;/div&gt;
+
+     &lt;div class="player_progress"&gt;
+          &lt;div class="progress_bg"&gt;&lt;/div&gt;
+          &lt;div class="load_progress"&gt;&lt;/div&gt;
+          &lt;div class="play_progress"&gt;&lt;/div&gt;
+          &lt;div class="player_progress_tooltip"&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+     &lt;/div&gt;
+     
+     &lt;div class="player_mediaTime_total"&gt;00:00&lt;/div&gt;
+     
+     &lt;div class="player_volume_wrapper"&gt;
+         &lt;div class="player_volume"&gt;&lt;img src='media/data/icons/set2/volume.png' alt='player_volume'/&gt;&lt;/div&gt;
+         &lt;div class="volume_seekbar" data-orientation="vertical" data-autoHide="3000"&gt;
+             &lt;div class="volume_bg"&gt;&lt;/div&gt;
+             &lt;div class="volume_level"&gt;&lt;/div&gt;
+             &lt;div class="player_volume_tooltip"&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+          &lt;/div&gt;
+     &lt;/div&gt;
+      
+     &lt;div class="playlistHolder"&gt;
+         &lt;div class="componentPlaylist"&gt;
+             &lt;div class="playlist_inner"&gt;
+                &lt;!-- playlist items are appended here! --&gt; 
+             &lt;/div&gt;
+         &lt;/div&gt;
+         &lt;!-- preloader --&gt; 
+         &lt;div class="preloader"&gt;&lt;/div&gt;
+     &lt;/div&gt;
+     
+&lt;/div&gt;</pre></code></div><br/><br/>            
+             
+             		2. Every player has css code linked in html head tag (in our case <font style="color:red; font-weight:bold;">html5audio_classic_multiple.css</font>):<br/><br/>
+                    
+<div class="code"><pre><code>&lt;link rel="stylesheet" type="text/css" href="css/html5audio_classic_multiple.css" /&gt;
+</pre></code></div><br/><br/>                    
+                    
+                    3. Every player has settings javascript file (in our case <font style="color:red; font-weight:bold;">jquery.html5audio.settings_classic_multiple.js</font>), which contain player settings:<br/><br/>
+                    
+<div class="code"><pre><code>// SETTINGS
+			
+var hap_settings = {
+	/* useOnlyMp3Format: true/false (set to true, and on browsers than do not support mp3, flash will be used to play mp3. Also set to true if you plan on using podcast, soundcloud, youtube, ofm) */
+	useOnlyMp3Format: true,
+	/* sound_id: unique string for player identification (if multiple player instances were used, then strings need to be different!) */
+	sound_id: 'classic_multiple1',
+	
+	/* playlistList: dom elements which holds list of playlists */
+	playlistList: '#playlist_list',
+	/* activePlaylist: set active playlist that will be loaded on beginning. 
+	param1: hidden (boolean) true/false (visible/hidden playlist)
+	param2: id (pass element 'id' from the dom)
+	Leave empty for no playlist loaded at start like this: activePlaylist: '' */
+	activePlaylist: {hidden: false, id: '#playlist1'},
+	/* activeItem: active item to start with when playlist is loaded (0 = first, 1 = second, 2 = third... -1 = none) */
+	activeItem: 0,
+	
+	/* autoOpenPlayerInPopup: true/false. Auto open player in popup (removes player in parent window when player in popup opens) */
+	autoOpenPlayerInPopup: false,
+	/* autoUpdateWindowData: true/false. Auto update data between parent window and popup window (current (last) playlist, active item, last volume) */
+	autoUpdateWindowData: true,
+	
+	/* soundcloudApiKey: If you want to use SoundCloud music, register you own api key here for free: 
+	'http://soundcloud.com/you/apps/new' and enter Client ID */
+	soundcloudApiKey: '',
+	/* soundcloud_result_limit: max number of results to retrieve from soundcloud. BEWARE! Some results may contain thousands of songs so keep this in mind!! */
+	soundcloud_result_limit: 2,
+	
+	/* podcast_result_limit: max number of results to retrieve from podcast. 250 = max possible results by google api feed. */
+	podcast_result_limit: 3,
+	/* yt_playlist_result_limit: max number of results to retrieve from youtube playlist. 200 = max amount youtube playlist can have. */
+	yt_playlist_result_limit: 3,
+	/* ofm_result_limit: max number of results to retrieve from official.fm. */
+	ofm_result_limit: 3,
+
+	/*defaultVolume: 0-1 (Irrelevant on ios mobile) */
+	defaultVolume:0.5,
+	/*autoPlay: true/false (false on mobile by default) */
+	autoPlay:false,
+	/*autoLoad: true/false (auto start sound load) */
+	autoLoad:false,
+	/*randomPlay: true/false */
+	randomPlay:false,
+	/*loopingOn: true/false (loop on the end of the playlist) */
+	loopingOn:true,
+	
+	/* usePlaylistRollovers: true/false. Use rollovers on playlist items (mouseenter, mouseleave + callbacks) */
+	usePlaylistRollovers: false,
+	/* playlistItemContent: title/thumb/all. Auto create titles or thumbnails in playlist items, or both. */
+	playlistItemContent: 'title',
+	/* useNumbersInPlaylist: true/false. Prepend numbers in playlist items. */
+	useNumbersInPlaylist: true,
+	/* titleSeparator: String to append between song number and title. */
+	titleSeparator: '.&nbsp;',
+	
+	/* autoSetSongTitle: true/false. Auto set song title in 'player_mediaName'. */
+	autoSetSongTitle: true,
+	
+	/* useSongNameScroll: true/false. Use song name scrolling. */
+	useSongNameScroll: false,
+	/* scrollSpeed: speed of the scroll (number higher than zero). */
+	scrollSpeed: 1,
+	/* scrollSeparator: String to append between scrolling song name. */
+	scrollSeparator: '&nbsp;&#42;&#42;&#42;&nbsp;',
+	
+	/* mediaTimeSeparator: String between current and total song time. */
+	mediaTimeSeparator: '',
+	
+	/* useVolumeTooltip: true/false. use tooltip over volume seekbar */
+	useVolumeTooltip: true,
+	
+	/* useSeekbarTooltip: true/false. use tooltip over progress seekbar */
+	useSeekbarTooltip: true,
+	/* seekTooltipSeparator: String between current and total song position, for progress tooltip. */
+	seekTooltipSeparator: '&nbsp;/&nbsp;',
+	
+	/* defaultArtistData: Default text for song media name. */
+	defaultArtistData: 'Artist&nbsp;Name&nbsp;-&nbsp;Artist&nbsp;Title',
+	
+	/* useBtnRollovers: true/false. Use rollovers on buttons */
+	useBtnRollovers: false,
+	/* buttonsUrl: url of the buttons for normal and rollover state */
+	buttonsUrl: {prev: 'media/data/icons/set2/prev.png', prevOn: 'media/data/icons/set2/prev_on.png', 
+				 next: 'media/data/icons/set2/next.png', nextOn: 'media/data/icons/set2/next_on.png', 
+				 pause: 'media/data/icons/set2/pause.png', pauseOn: 'media/data/icons/set2/pause_on.png',
+				 play: 'media/data/icons/set2/play.png', playOn: 'media/data/icons/set2/play_on.png',
+				 volume: 'media/data/icons/set2/volume.png', volumeOn: 'media/data/icons/set2/volume_on.png', 
+				 mute: 'media/data/icons/set2/mute.png', muteOn: 'media/data/icons/set2/mute_on.png', 
+				 download: 'media/data/icons/set2/dl.png', downloadOn: 'media/data/icons/set2/dl_on.png',
+				 loop: 'media/data/icons/set2/loop.png', loopOn: 'media/data/icons/set2/loop_on.png',
+				 shuffle: 'media/data/icons/set2/shuffle.png', shuffleOn: 'media/data/icons/set2/shuffle_on.png',
+				 purchaseTrackIcon: 'media/data/url.png',
+				 downloadTrackIcon: 'media/data/dlink.png',
+				 removeTrackIcon: 'media/data/remove.png',
+				 link_play: 'media/data/link_play.png', link_pause: 'media/data/link_pause.png'},
+				 
+	/* useAlertMessaging: true/false. Alert error messages to user */
+	useAlertMessaging: false,
+	
+	/* activatePlaylistScroll: true/false. activate jScrollPane. */
+	activatePlaylistScroll: false,
+	/* playlistScrollOrientation: vertical/horizontal. */
+	playlistScrollOrientation: 'vertical',
+	
+	/* sortablePlaylistItems: true/false. Make playlist items sortable */
+	sortablePlaylistItems: true,
+	/* useRemoveBtnInTracks: true/false. Create remove buttons in playlist items for removing tracks. */
+	useRemoveBtnInTracks: true,
+	
+	/* autoReuseMailForDownload: true/false. download backup for ios, save email after client first enters email address and auto send all emails to the same address */
+	autoReuseMailForDownload: true,
+	
+	/* useKeyboardNavigation: false/false. Use keyboard navigation for music (space=toggle audio, left arrow=previous media, right arrow=next media, m=toggle volume) */
+	useKeyboardNavigation: false
+};</pre></code></div><br/><br/>
+
+					<font style="color:red; font-weight:bold;">	plus player initialization part:</font><br/><br/>
+                    
+<div class="code"><pre><code>/* START PLAYER INIT */
+
+var hap_group = 'classic_multiple', hap_player1, hap_player2, hap_player3, hap_player4, hap_player5, hap_player6, hap_player7, hap_player8, hap_players = [hap_player1, hap_player2, hap_player3, hap_player4, hap_player5, hap_player6, hap_player7, hap_player8], soundArr;
+jQuery(document).ready(function($) {
+	jsReady = true;
+		
+	var dataArr = [{holder: $('#componentWrapper'), settings:hap_settings},//populate dataArr after document.ready!
+			{holder: $('#componentWrapper2'), settings:hap_settings2},
+			{holder: $('#componentWrapper3'), settings:hap_settings3},
+			{holder: $('#componentWrapper4'), settings:hap_settings4},
+			{holder: $('#componentWrapper5'), settings:hap_settings5},
+			{holder: $('#componentWrapper6'), settings:hap_settings6},
+			{holder: $('#componentWrapper7'), settings:hap_settings7},
+			{holder: $('#componentWrapper8'), settings:hap_settings8}];
+		
+	checkFlash(dataArr);	
+	
+	//init component
+	hap_players[0] = $('#componentWrapper').html5audio(hap_settings);
+	hap_players[1] = $('#componentWrapper2').html5audio(hap_settings2);
+	hap_players[2] = $('#componentWrapper3').html5audio(hap_settings3);
+	hap_players[3] = $('#componentWrapper4').html5audio(hap_settings4);
+	hap_players[4] = $('#componentWrapper5').html5audio(hap_settings5);
+	hap_players[5] = $('#componentWrapper6').html5audio(hap_settings6);
+	hap_players[6] = $('#componentWrapper7').html5audio(hap_settings7);
+	hap_players[7] = $('#componentWrapper8').html5audio(hap_settings8);
+	
+	//sound array for controlling multiple sound instances (pause one when other starts)
+	soundArr = [{player_id: hap_players[0], sound_id: 'classic_multiple1'},
+				{player_id: hap_players[1], sound_id: 'classic_multiple2'},
+				{player_id: hap_players[2], sound_id: 'classic_multiple3'},
+				{player_id: hap_players[3], sound_id: 'classic_multiple4'},
+				{player_id: hap_players[4], sound_id: 'classic_multiple5'},
+				{player_id: hap_players[5], sound_id: 'classic_multiple6'},
+				{player_id: hap_players[6], sound_id: 'classic_multiple7'},
+				{player_id: hap_players[7], sound_id: 'classic_multiple8'}];
+});
+		
+/* END PLAYER INIT */ </pre></code></div><br/><br/>                   
+                    
+                   As you can see most of this part is for flash embed which happens dynamically (if flash is necessary) and also storing the player references in soundArr (array) so they can be tracked later in <font style="color:red; font-weight:bold;">jquery.html5audio.func.js</font> for pausing one sound when other starts:<br/><br/>
+                   
+<div class="code"><pre><code>function audioPlayerSoundPlay(instance, sound_id, counter){
+	/* called when sound is played. Returns player instance, sound id, media counter. */
+	//console.log('audioPlayerSoundPlay: ');
+	
+	if(typeof(hap_group) !== 'undefined' && typeof(hap_players) !== 'undefined' && hap_players.length && typeof(soundArr) !== 'undefined' && soundArr.length){
+		var i = 0, len = soundArr.length;
+		for(i;i&lt;len;i++){
+			if(sound_id != soundArr[i].sound_id){
+				//console.log('audioPlayerSoundPlay: ', sound_id, soundArr[i].sound_id);
+				if(typeof api_checkAudio !== 'undefined')api_checkAudio(soundArr[i].player_id, 'pause');
+			}
+		}
+	}
+}</pre></code></div><br/><br/>
+                    
+                </p>
+                
+            </div>       
+                    
+                        
+            <div class="page">
+            
+               <h2>Callbacks</h2><br/>
+                
+                <p>
+                	Callbacks are located inside <font style="color:red; font-weight:bold;">jquery.html5audio.func.js</font> file. They are all called from <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> file. Every callback is commented so it should get you going.
+                    <br/><br/>
+                   
+<div class="code"><pre><code>/* START PLAYER CALLBACKS */
+			
+function audioPlayerSetupDone(instance, sound_id){
+	/* called when component is ready to use public API. Returns player instance, sound id. */
+	//console.log('audioPlayerSetupDone: ', sound_id);
+
+	if(sound_id == 'popup1' || sound_id == 'classic_popup'){
+		$('#popup_open').css({cursor:'pointer', display:'block'}).bind('click', function(){
+			open_popup(popup_url, popup_width, popup_height, resizable);
+			return false;
+		});
+	}else if(sound_id == 'circle_slideshow' || sound_id == 'bg_slideshow'){
+		loadImage();
+	}
+	
+	//remove hover if touch
+	if(sound_id == 'classic_single' || sound_id == 'classic_multiple' || sound_id == 'classic_multiple2' || sound_id == 'classic_multiple3' || sound_id == 'classic_multiple4' || sound_id == 'classic_multiple5' || sound_id == 'classic_multiple6' || sound_id == 'classic_multiple7' || sound_id == 'classic_multiple8' || sound_id == 'classic_popup' || sound_id == 'wall1'|| sound_id == 'drag_to_play' || /wrap_multi/g.test(sound_id)){
+		if(instance.getTouch()){
+			instance.find('.controls_toggle').addClass('hap_no_hover');
+			instance.find('.player_volume').addClass('hap_no_hover');
+			instance.find('.controls_prev').addClass('hap_no_hover');
+			instance.find('.controls_next').addClass('hap_no_hover');
+			instance.find('.controls_popup').addClass('hap_no_hover');
+		}
+	}
+	
+	
+	//create audio after component init!
+	if(typeof(hap_group) !== 'undefined'){
+		if(hap_group == 'wrap_multi' || hap_group == 'wrap_multi2'){
+			if(hap_group == 'wrap_multi2' && sound_id == 'wrap_multi2_selector') return;
+			
+			var track, type, mp3, ogg='', title, thumb, download, _item = $(instance).closest('.playlistItem');
+			if(_item.attr('data-type') != undefined) type = _item.attr('data-type');
+			if(_item.attr('data-mp3') != undefined) mp3 = _item.attr('data-mp3');
+			if(type && mp3){
+				  if(_item.attr('data-ogg') != undefined) ogg = _item.attr('data-ogg');
+				  if(_item.attr('data-title') != undefined) title = _item.attr('data-title');
+				  if(_item.attr('data-thumb') != undefined) thumb = _item.attr('data-thumb');
+				  if(_item.attr('data-download') != undefined) download = _item.attr('data-download');
+				  
+				  //since we process each track from playlist selector, we want all types to be 'local' when using api_addTrack! (otherwise process track would fail for non local type because we would be trying to process already processed track, and there is no point in doing it once again). So we set local type just for the api_addTrack so the track gets added into the playlist without processing, then afterwards switch types! (maybe local type could be left for all types except youtube, whose playback is treated differently but we bring back original type for all types nevertheless)
+				  
+				  track = [{type: 'local', origtype:type, mp3: mp3, ogg: ogg, title: title, thumb: thumb, download: download}];
+				  //console.log(track);
+				  instance.addTrack('visible', 'data', track[0]);
+			}
+		}
+	}
+}
+function audioPlayerPlaylistLoaded(instance, sound_id){
+	/* called when playlist is loaded. Returns player instance, sound id. */
+	//console.log('audioPlayerPlaylistLoaded: ', sound_id);
+	
+	if(typeof(hap_group) !== 'undefined'){
+		if(hap_group == 'wrap_multi2' && sound_id == 'wrap_multi2_selector'){
+			makeHapPlayers(instance);
+		}
+	}
+	
+	if(sound_id == 'drag_text1' || sound_id == 'drag_thumb1'){
+		//make draggable from playlist selector into player playlist
+		instance.find("li[class*=hap_draggable]").draggable({
+			connectToSortable: ".hap_sortable",
+			helper: "clone",
+			revert: "invalid"
+		});
+	}
+	else if(sound_id == 'drag_text2' || sound_id == 'drag_thumb2'){
+		//console.log($("#playlist2").hasClass('ui-droppable'));
+		//action when item is dropped from playlist selector into player playlist
+		$("#playlist2").droppable({
+			tolerance: "touch",
+			drop: function(event, ui) {
+			   //draggable item
+			   //console.log($(ui.draggable));
+			   var _item = $(ui.draggable);
+			   //remove locked
+			   if(_item.hasClass('playlist_locked')){
+				   _item.removeClass('playlist_locked');
+			   }
+		   }
+		});
+	}
+	
+	//enable selector
+	if(sound_id == 'wall1' || sound_id == 'basic1' || sound_id == 'basic2' || sound_id == 'artwork1' || sound_id == 'drag_text1' || sound_id == 'drag_thumb1'){
+		if($("#hap_playlist").length)$("#hap_playlist").selectbox("enable");
+	}
+}
+function audioPlayerPlaylistEnd(instance, sound_id){
+	/* called when current playlists reaches end. Returns player instance, sound id. */
+	//console.log('audioPlayerPlaylistEnd: ');
+} 
+function audioPlayerSoundEnd(instance, sound_id, counter){
+	/* called when current playing sound ends. Returns player instance, sound id, media counter. */
+	//console.log('audioPlayerSoundEnd: ');
+}
+function audioPlayerSoundStart(instance, sound_id, counter){
+	/* called when current playing sound starts. Returns player instance, sound id, media counter. */
+	//console.log('audioPlayerSoundStart: ', sound_id);
+}
+function audioPlayerSoundPlay(instance, sound_id, counter){
+	/* called when sound is played. Returns player instance, sound id, media counter. */
+	//console.log('audioPlayerSoundPlay: ');
+	
+	if(typeof(hap_group) !== 'undefined' && typeof(hap_players) !== 'undefined' && hap_players.length && typeof(soundArr) !== 'undefined' && soundArr.length){
+		var i = 0, len = soundArr.length;
+		for(i;i&lt;len;i++){
+			if(sound_id != soundArr[i].sound_id){
+				//console.log('audioPlayerSoundPlay: ', sound_id, soundArr[i].sound_id);
+				if(typeof api_checkAudio !== 'undefined')api_checkAudio(soundArr[i].player_id, 'pause');
+			}
+		}
+	}
+}
+function audioPlayerSoundPause(instance, sound_id, counter){
+	/* called when sound is paused. Returns player instance, sound id, media counter. */
+	//console.log('audioPlayerSoundPause: ', sound_id);
+}
+function itemTriggered(instance, sound_id, counter){
+	/* called when new sound is triggered. Returns player instance, sound_id, media counter. */
+	//console.log('itemTriggered: ');
+	
+	if(sound_id == 'artwork1' || sound_id == 'basic1' || sound_id == 'basic2'){
+		var player_thumb = instance.find('.player_thumb').find('img'),
+			data = instance.getPlaylistData(),
+			thumb = data[counter].thumb;
+		if(player_thumb.length && thumb){
+			//console.log(thumb);
+			player_thumb.attr('src', thumb);
+		}
+	}
+}
+function playlistItemEnabled(instance, sound_id, target, id){
+	/* called on playlist item enable. Returns player instance, sound_id, playlist item (target), playlist item id (playlist items have data-id attributes starting from 0). */
+	//console.log('playlistItemEnabled: ');
+	
+	if(sound_id == 'wall1'){
+		$(target).find('p[class=hap_title]').remove();
+	}
+}
+function playlistItemDisabled(instance, sound_id, target, id){
+	/* called on playlist item disable. Returns player instance, sound_id, playlist item (target), playlist item id (playlist items have data-id attributes starting from 0). */
+	//console.log('playlistItemDisabled: ');
+	
+	if(sound_id == 'wall1'){
+		var data = instance.getPlaylistData(),
+			title = data[id].title;
+		if(title){
+			var p = $('&lt;p&gt;"'+title+'"&lt;/p&gt;').addClass('hap_title');
+			p.appendTo($(target)).css('marginTop',-p.outerHeight(true)/2+'px');
+		}
+	}
+}
+function playlistItemRollover(instance, sound_id, target, id, active){
+	/* called on playlist item mouseenter. Returns player instance, sound_id, playlist item (target), playlist item id (playlist items have data-id attributes starting from 0), active (is active playlist item, boolean). */
+	//console.log('playlistItemRollover: ');
+	if(sound_id == 'wall1' && !active){
+		var data = instance.getPlaylistData(),
+			title = data[id].title;
+		if(title){
+			var p = $('&lt;p&gt;"'+title+'"&lt;/p&gt;').addClass('hap_title');
+			p.appendTo($(target)).css('marginTop',-p.outerHeight(true)/2+'px');
+		}
+	}
+	
+}
+function playlistItemRollout(instance, sound_id, target, id, active){
+	/* called on playlist item mouseleave. Returns player instance, sound_id, playlist item (target), playlist item id (playlist items have data-id attributes starting from 0), active (is active playlist item, boolean). */
+	//console.log('playlistItemRollout: ');
+	if(sound_id == 'wall1' && !active){
+		$(target).find('p[class=hap_title]').remove();
+	}
+	
+}
+function playlistEmpty(instance, sound_id){
+	/* called when playlist becomes empty (no items in playlist after new playlist has been created or last playlist item removed from playlist). Returns player instance, sound_id. */
+	//console.log('playlistEmpty: ');
+	if(sound_id == 'drag_text2' || sound_id == 'drag_thumb2'){
+		instance.destroyAudio();
+		instance.find('p[class=drag_info]').css('display','block');//show drag info
+	}
+}
+function dropReceive(instance, sound_id){
+	/* called when item gets dropped into the playlist. Returns player instance, sound_id. */
+	//console.log('dropReceive: ');
+	if(sound_id == 'drag_text2' || sound_id == 'drag_thumb2'){
+		instance.find('p[class=drag_info]').css('display','none');//show drag info
+	}
+}
+
+/* END PLAYER CALLBACKS */</code><pre></div>
+                   
+                    
+                </p>
+                
+            </div>
+
+            <div class="page">
+            
+               <h2>API methods</h2><br/>
+                
+                <p>
+                
+                    API methods are available for usage after <font style="color:red; font-weight:bold;">audioPlayerSetupDone</font> callback fires.
+                
+                	API external linkages are located inside <font style="color:red; font-weight:bold;">jquery.html5audio.func.js</font> file:<br/><br/> 
+                    
+<div class="code"><pre><code>/* START PLAYER API */
+
+function api_playAudio(player){
+	if(player)player.playAudio(); 
+}
+function api_pauseAudio(player){
+	if(player)player.pauseAudio(); 
+}
+function api_toggleAudio(player){
+	if(player)player.toggleAudio(); 
+}
+function api_stopAudio(player){
+	if(player)player.stopAudio(); 
+}
+function api_checkAudio(player, action){
+	if(player)player.checkAudio(action);
+}
+function api_nextAudio(player){
+	if(player)player.nextAudio(); 
+}
+function api_previousAudio(player){
+	if(player)player.previousAudio(); 
+}
+function api_loadAudio(player, id){
+	if(player)player.loadAudio(id); 
+}
+function api_loadPlaylist(player, id){
+	if(player)player.loadPlaylist(id); 
+}
+function api_addTrack(player, type, format, tracks, pos){
+	if(player)player.addTrack(type, format, tracks, pos); 
+}
+function api_inputAudio(player, track){
+	if(player)player.inputAudio(track); 
+}
+function api_removeTrack(player, id){
+	if(player)player.removeTrack(id); 
+}
+function api_destroyAudio(player){
+	if(player)player.destroyAudio(); 
+}
+function api_destroyPlaylist(player){
+	if(player)player.destroyPlaylist(); 
+}
+function api_toggleShuffle(player){
+	if(player)player.toggleShuffle(); 
+}
+function api_toggleLoop(player){
+	if(player)player.toggleLoop(); 
+}
+function api_checkScroll(player){
+	if(player)player.checkScroll(); 
+}
+function api_reinitScroll(player){
+	if(player)player.reinitScroll(); 
+}
+function api_orderPlaylist(player, action, data){
+	if(player)player.orderPlaylist(action, data); 
+}
+
+
+/* GETTERS - SETTERS */
+function api_getVolume(player){
+	if(player)return player.getVolume(); 
+}
+function api_setVolume(player, val){
+	if(player)player.setVolume(val); 
+}
+function api_getAutoPlay(player){
+	if(player)return player.getAutoPlay(); 
+}
+function api_setAutoPlay(player, val){
+	if(player)player.setAutoPlay(val); 
+}
+function api_setTitle(player, val){
+	if(player)player.setTitle(val); 
+}
+function api_getSetupDone(player){
+	if(player)return player.getSetupDone(); 
+}
+function api_getPlaylistLoaded(player){
+	if(player)return player.getPlaylistLoaded(); 
+}
+function api_getPlaylistTransition(player){
+	if(player)return player.getPlaylistTransition(); 
+}
+function api_getMediaPlaying(player){
+	if(player)return player.getMediaPlaying(); 
+} 
+function api_getAudioInited(player){
+	if(player)return player.getAudioInited(); 
+} 
+function api_getMediaType(player){
+	if(player)return player.getMediaType(); 
+} 
+function api_getActiveItem(player){
+	if(player)return player.getActiveItem(); 
+} 
+function api_getPlaylistItems(player, value){
+	if(player)return player.getPlaylistItems(value); 
+} 
+function api_getMediaCount(player){
+	if(player)return player.getMediaCount(); 
+}
+function api_getPlaylistHidden(player){
+	if(player)return player.getPlaylistHidden(); 
+}
+function api_getPlaylistList(player){
+	if(player)return player.getPlaylistList();
+}
+function api_getPlaylistData(player){
+	if(player)return player.getPlaylistData(); 
+}   
+function api_getSoundId(player){
+	if(player)return player.getSoundId(); 
+}  
+
+/* END PLAYER API */</pre></code></div><br/><br/> 
+                    
+                    You can look at callback methods directly in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> file, towards the bottom of the file starting with:<br/><br/>
+                    
+<div class="code"><pre><code>// ************************************************************ //
+// ******************************** PUBLIC API **************** //
+
+/* play current active media */ 
+this.playAudio = function() {
+    if(!componentInited) return false;
+    if(playlistTransitionOn) return false;
+    if(!lastPlaylist) return false;
+    if(mediaPlaying) return false;
+    if(!audioInited) return false;
+    if(media_type == 'youtube_single' || media_type == 'youtube_playlist'){
+        if(!yt_ready)return false;
+        if(html5Support){
+            _youtubePlayer.togglePlayback();
+        }else{
+            if(typeof getFlashMovie(flashMain) !== "undefined")getFlashMovie(flashMain).pb_togglePlayback();	
+        }
+    }else{
+        if(useHtml5Audio){
+            if(audioUp2Js)audioUp2Js.play();
+        }else{
+            if(typeof getFlashMovie(flashAudio) !== "undefined")getFlashMovie(flashAudio).pb_play();
+        }
+    } 
+    setPauseIcon('off');
+    mediaPlaying=true;
+    audioInited=true;
+}
+...</pre></code></div><br/><br/>   
+
+					These methods are all commented in there in more detail.                
+                    
+                    <br/><br/>
+                    
+                    Demo examples named <strong>index_playlist_selector.html</strong> and <strong>index_full2.html</strong> already have some API example usage set where you can get even more info on how to use it.
+                    
+                    <br/><br/>
+                    
+                </p>
+                
+            </div>
+            
+            <div class="page">
+            
+               <h2>Possible audio issues</h2><br/>
+                
+                <p>
+                
+                HTML5 audio (and video) can be especially fragile on mobile phones, and there are couple of things worth mentioning:<br/><br/><br/>
+                
+                
+                1. <br/>
+                AutoPlay is automatically set to false on mobile (in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font>).<br/><br/>
+                
+                This means when you set autoPlay to true in options, it will be true on desktop, but on mobiles it will be false.<br/><br/>
+                
+                <font style="color:red; font-weight:bold;">This is important!</font><br/><br/>
+                
+                AutoPlay doesnt work on ios, and possibly some other mobiles out there, trying to set otherwise it could break the playback all together.<br/><br/>
+                 
+                <a href='http://developer.apple.com/library/safari/#documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html' target='_blank'>http://developer.apple.com/library/safari/#documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html</a><br/><br/>
+                
+                Section: User Control of Downloads Over Cellular Networks<br/><br/>
+                
+                You can test this by running example <strong>autoplay.html</strong> from <strong>audio_test folder.</strong><br/><br/>
+                
+                Acording to my testing, it does work on firefox on android, but not chrome and it doesnt work at all on IOS.<br/><br/>
+                
+                <br/><br/><br/><br/>
+                
+                
+                2.<br/>
+                Playing MULTIPLE audio instances at the same time causes bugs in IOS!<br/><br/>
+                
+                <a href='http://developer.apple.com/library/safari/#documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html#//apple_ref/doc/uid/TP40009523-CH5-SW11' target='_blank'>Using_HTML5_Audio_Video/Device-SpecificConsiderations</a><br/><br/>
+                
+                Section: Multiple Simultaneous Audio or Video Streams<br/><br/>
+                
+                Thats a restriction from Apple again.<br/><br/>
+                
+                This may or may not be true with current version of IOS, but it was true with previous versions.
+                <br/><br/><br/><br/><br/>
+                    
+                    
+                    
+                3. <br/>
+                You cannot control the volume on IOS with javascript, you have to use the physical button on the actual phone!<br/><br/>
+                    
+                This might be true for some other mobiles out there, but for IOS, its definitely true.<br/><br/>
+                
+                <a href='http://developer.apple.com/library/safari/#documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html#//apple_ref/doc/uid/TP40009523-CH5-SW11' target='_blank'>Using_HTML5_Audio_Video/Device-SpecificConsiderations</a><br/><br/>
+                
+                Section: Volume Control in JavaScript<br/><br/><br/><br/>
+                
+                Another link about video issues on mobile phones.<br/><br/>
+                
+                <a href='http://blog.millermedeiros.com/unsolved-html5-video-issues-on-ios/' target='_blank'>http://blog.millermedeiros.com/unsolved-html5-video-issues-on-ios/</a>
+                <br/><br/><br/><br/><br/>
+                    
+                </p>
+                
+            </div>
+            
+            <div class="page">
+            
+               <h2>Player initialization problems</h2><br/>
+                
+               <p>
+               
+               In case you have player wrapped in a element that has in css set <strong>display:none</strong>, 
+                
+                then you should initialize the player after you show this element (<strong>display:block</strong>), otherwise the player might not initialize properly.<br/><br/>  
+                
+                By <strong>initialize</strong> I mean do this:<br/><br/>
+               
+<div class="code"><pre><code>jQuery(document).ready(function($) {
+    //init component
+   hap_players[0] = $('#componentWrapper').html5audio(hap_settings);
+});</pre></code></div><br/><br/>              
+               
+               
+               
+               One possible case is that flash is being used and in that case its important that the player is not hidden in css. If you suspect this might be the case and the player is 'stalled' at the beginning, look in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> file, this part:<br/><br/>
+               
+               
+<div class="code"><pre><code>//*********** start flash init ***********/
+
+function startFlashInit(){
+    if(typeof embedFlashMain !== 'undefined'){
+        var id = flashMain.substr(1);//remove #
+        embedFlashMain(id);
+    }else{
+        if(useAlertMessaging) alert('Problems with flash initialization (startFlashInit)! Flash for youtube not initialized! Sound_id: ' + sound_id);
+        endInit();
+        return;
+    }
+    if(typeof embedFlashAudio !== 'undefined'){
+        var id = flashAudio.substr(1);//remove #
+        embedFlashAudio(id);
+    }else{
+        if(useAlertMessaging) alert('Problems with flash initialization (startFlashInit)! Flash audio not initialized! Sound_id: ' + sound_id);
+        endInit();
+        return;
+    }
+    //console.log(typeof getFlashMovie(flashMain));
+    if(typeof getFlashMovie(flashMain) !== "undefined"){
+        flashReadyIntervalID = setInterval(checkFlashReady, flashReadyInterval);	
+    }else{
+        if(useAlertMessaging) alert('Problems with flash initialization (startFlashInit)! Flash for youtube not initialized! Sound_id: ' + sound_id);
+        checkFlashSound();
+    }
+}
+function checkFlashReady(){
+    //console.log('checkFlashReady');
+    if(getFlashMovie(flashMain).setData != undefined){
+        if(flashReadyIntervalID) clearInterval(flashReadyIntervalID);
+        //console.log(settings);
+        getFlashMovie(flashMain).setData(settings);//pass data to flash
+        componentWrapper.find('.flashMain').css('left',-10000+'px');//move it after we init the player!
+        
+        checkFlashSound();
+    }
+}
+function checkFlashSound(){
+    //console.log('checkFlashSound');
+    if(typeof getFlashMovie(flashAudio) !== "undefined"){
+        flashReadyIntervalID = setInterval(checkFlashReady2, flashReadyInterval);	
+    }else{
+        if(useAlertMessaging) alert('Problems with flash initialization (checkFlashSound)! Flash audio backup not initialized! Sound_id: ' + sound_id);
+        checkFlashCircle();
+    }
+}
+function checkFlashSound_b(){
+    if(typeof embedFlashAudio !== 'undefined'){
+        var id = flashAudio.substr(1);//remove #
+        embedFlashAudio(id);
+    }else{
+        if(useAlertMessaging) alert('Problems with flash initialization (checkFlashSound_b1)! Flash audio backup not initialized! Sound_id: ' + sound_id);
+        endInit();
+        return;
+    }
+    if(typeof getFlashMovie(flashAudio) !== "undefined"){
+        flashReadyIntervalID = setInterval(checkFlashReady2_b, flashReadyInterval);	
+    }else{
+        if(useAlertMessaging) alert('Problems with flash initialization (checkFlashSound_b2)! Flash audio backup not initialized! Sound_id: ' + sound_id);
+        endInit();
+    }
+}
+function checkFlashReady2(){
+    //console.log('checkFlashReady2');
+    if(getFlashMovie(flashAudio).setData != undefined){
+        if(flashReadyIntervalID) clearInterval(flashReadyIntervalID);
+        getFlashMovie(flashAudio).setData(settings);//pass data to flash
+        componentWrapper.find('.flashAudio').css('left',-10000+'px');//move it after we init the player!
+        
+        checkFlashCircle();
+    }
+}
+function checkFlashReady2_b(){
+    //console.log('checkFlashReady2b');
+    if(getFlashMovie(flashAudio).setData != undefined){
+        if(flashReadyIntervalID) clearInterval(flashReadyIntervalID);
+        getFlashMovie(flashAudio).setData(settings);//pass data to flash
+        componentWrapper.find('.flashAudio').css('left',-10000+'px');//move it after we init the player!
+        endInit();
+    }
+}
+function checkFlashCircle(){
+    //console.log('checkFlashCircle');
+    if(hap_circle){
+        if(typeof embedFlashCircle !== 'undefined'){
+            var id = circleMain.substr(1);//remove #
+            embedFlashCircle(id);
+        }else{
+            if(useAlertMessaging) alert('Problems with flash initialization (checkFlashCircle)! Flash circle not initialized! Sound_id: ' + sound_id);
+            endInit();
+            return;
+        }
+        if(typeof getFlashMovie(circleMain) !== "undefined"){
+            flashReadyIntervalID = setInterval(checkFlashReady3, flashReadyInterval);	
+        }else{
+            if(useAlertMessaging) alert('Problems with flash initialization (checkFlashCircle)! Flash circle backup (canvas support is false) not initialized! Sound_id: ' + sound_id);
+            endInit();
+        }
+    }else{
+        $('.circleMain').remove();
+        endInit();
+    }
+}
+function checkFlashReady3(){
+    //console.log('checkFlashReady3');
+    if(getFlashMovie(circleMain).setData != undefined){
+        if(flashReadyIntervalID) clearInterval(flashReadyIntervalID);
+        getFlashMovie(circleMain).setData(circle_settings);//pass data to flash
+        
+        endInit();
+    }
+}
+//*********** end flash init ***********/
+</pre></code></div><br/><br/>    
+
+				You can uncomment some of these console logs to see if this is where the code has stuck.  <br/><br/><br/><br/> 
+                
+                    
+
+
+
+				Other things which need player holder to be visible before initializing (if used) are playlist scroll (jScrollPane) and song name scroll (<font style="color:red; font-weight:bold;">jquery.apTextScroller.min.js</font>).<br/><br/>  
+                
+                I have added API method which can correct jScrollPane and song name scroll issue (in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> file):<br/><br/>
+                
+<div class="code"><pre><code>/*
+Call this when some container (like a div) in which '#componentWrapper' is placed is set to 'display:none' in css. 
+Then when you show that container, call reinitScroll(), to reinitialize jScrollPane, 
+because jScrollPane needs container to be visible.
+Also, text scoller needs '.fontMeasure' element visible to get the correct width of the font.
+*/
+this.reinitScroll = function() {
+    if(!componentInited) return false;
+    if(playlistTransitionOn) return false;
+    if(!lastPlaylist) return false;
+    if(scrollPaneApi){
+        scrollPaneApi.reinitialise();
+        if(playlistScrollOrientation == 'vertical'){
+            scrollPaneApi.scrollToY(0);
+            $('.jspPane').css('top',0+'px');
+        }else{
+            scrollPaneApi.scrollToX(0);
+            $('.jspPane').css('left',0+'px');
+        }
+    }
+    if(useSongNameScroll && textScroller){
+        if(playlistManager && playlistManager.getCounter()!=-1){
+            if(autoSetSongTitle)setMediaTitle();
+        }
+    }
+}</pre></code></div><br/><br/> 
+                
+                </p> 
+                    
+            </div>
+            
+            <div class="page">
+                
+               <h2>Scrollbar</h2><br/>
+               
+               <p>
+               
+                Scrollbar used in some demo examples in the playlist is jScrollPane:
+                <a href='http://jscrollpane.kelvinluck.com/' target='_blank'>http://jscrollpane.kelvinluck.com/</a><br/><br/>
+                
+                You will see jScrollPane code appearing in some places in <font style="color:red; font-weight:bold;">jquery.html5audio.js</font> file.<br/><br/>
+                
+                </p>
+                
+            </div>
+            
+        
+        </div>
+
+        <div id="productTitle"><a href='http://codecanyon.net/item/html5-audio-player-with-playlist/1694831' target='_blank' >HTML5 Audio Player with Playlist</a></div>
+    
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,106 @@
+HTML5 AUDIO PLAYER WITH PLAYLIST
+http://codecanyon.net/item/html5-audio-player-with-playlist/1694831
+
+<h2>Updates / Changelog</h2>
+
+<h3>22.6.2016</h3>
+version 3.35
+<ul>
+<li>fixed seekbar/volume seek on touch devices</li>
+</ul>
+
+<h3>3.12.2015</h3>
+version 3.30
+<ul>
+<li>updated podcast parsing</li>
+</ul>
+
+<h3>6.10.2015</h3>
+version 3.25
+<ul>
+<li>html5 audio code is now hidden preventing users from downloading audio</li>
+<li>fixed bug with ios 9 playback</li>
+</ul>
+
+<h3>6.7.2015</h3>
+version 3.21
+<ul>
+<li>updated official.fm parsing</li>
+</ul>
+
+<h3>17.4.2015</h3>
+version 3.2
+<ul>
+<li>update to Youtube api V3</li>
+</ul>
+
+<h3>12.2.2015</h3>
+version 3.11
+<ul>
+<li>fixed bug with player seekbar and volume size on start</li>
+</ul>
+
+<h3>22.12.2014</h3>
+version 3.1
+<ul>
+<li>fixed soundcloud favorites</li>
+</ul>
+
+<h3>2.5.2014</h3>
+version 3.09
+<ul>
+<li>fixed email link to file download if file name contain spaces</li>
+</ul>
+
+<h3>13.3.2014</h3>
+version 3.08
+<ul>
+<li>fixed id3 reader check on thumbnail</li>
+</ul>
+
+<h3>9.3.2014</h3>
+version 3.07
+<ul>
+<li>updated youtube issue http://code.google.com/p/gdata-issues/issues/detail?id=5788</li>
+</ul>
+
+<h3>2.2.2014</h3>
+version 3.06
+<ul>
+<li>fixed tooltip volume and seek offset</li>
+<li>download now works with spaces in file names</li></ul>
+</ul>
+
+<h3>20.1.2014</h3>
+version 3.05
+<ul>
+<li>removed onbeforeunload event popup html files</li>
+</ul>
+
+<h3>11.1.2014</h3>
+version 3.04
+<ul>
+<li>fixed bug with autoOpenPlayerInPopup</li>
+<li>fixed sortable scroll offset fix</li>
+<li>added getid3 cache bust</li>
+</ul>
+
+<h3>21.12.2013</h3>
+version 3.03
+<ul>
+<li>changed icon names/paths (download, trackUrlIcon, trackDownloadIcon)</li>
+<li>fixed download in createTrackFromData</li>
+<li>added option to sort files loaded from folder on title </li>
+<li>new demo (index_playlist_selector_with_scroll.html) + updated jscroll pane container height settings when adding/removing tracks</li> 
+<li>added option to parse id3 tags from mp3 files from folder</li>
+</ul>
+
+<h3>13.11.2013</h3>
+version 3.01
+<ul>
+<li>cleaned/improved flash embedding code</li>
+</ul>
+
+	
+	
+
