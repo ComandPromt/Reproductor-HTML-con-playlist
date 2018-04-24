@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>HTML5 Audio Player with Playlist by Tean</title>
+       
+		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css" media="all" /><!-- scroll in playlist -->
+        <link rel="stylesheet" type="text/css" href="css/jquery.selectbox.css" /><!-- playlist selector dropdown -->
+        <link rel="stylesheet" type="text/css" href="css/html5audio_default.css" />
+		<link rel="stylesheet" type="text/css" href="css/html5audio_draggable_3.css" />
+        
+        <script type="text/javascript" src="js/swfobject.js"></script><!-- flash backup --> 
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script><!-- jquery ui drag/sort -->
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script><!-- mobile drag/sort -->
+        <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/jquery.selectbox-0.2.js"></script><!-- playlist selector dropdown -->
+        <script type="text/javascript" src="js/id3-minimized.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.html5audio.min.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.func.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.settings_draggable_3.js"></script>
+        
+	</head>
+	<body>
+           
+        <div id="wrapper">
+             <p class="hap_drag_info">DRAG THE SONGS ONTO THE PLAYER TO PLAY THEM!</p><br>
+             <ul id='playlist1' class="hap_drag_spec">
+             
+             	 <!-- Only 'local' type playlist items here! If you need aynthing that needs to be processed (like youtube, ofm, podcasts, soundcloud etc... use index_draggable_2players or index_draggable_2players2 example, which use playlist from one player to make individual player items after it processes each track!) -->
+             
+                 <li class= 'playlistItem hap_draggable hap_play' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' data-title='Tim McMorris - A Bright And Hopeful Future' data-thumb='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.jpg'><a class='playlistNonSelected' href='#'><img src="../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.jpg" alt="image"/><p class="hap_title">Tim McMorris - A Bright And Hopeful Future</p></a></li>
+                 
+                 <li class= 'playlistItem hap_draggable hap_play' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.ogg' data-title='Tim McMorris - Be My Valentine' data-thumb='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.jpg'><a class='playlistNonSelected' href='#'><img src="../media/audio/1/Tim_McMorris_-_Be_My_Valentine.jpg" alt="image"/><p class="hap_title">Tim McMorris - Be_My_Valentine</p></a></li>
+                 
+                 <li class= 'playlistItem hap_draggable hap_play' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.ogg' data-title='Tim McMorris - Give Our Dreams Their Wings To Fly' data-thumb='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.jpg'><a class='playlistNonSelected' href='#'><img src="../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.jpg" alt="image"/><p class="hap_title">Tim McMorris - Give Our Dreams Their Wings To Fly</p></a></li>
+                 
+                 <li class= 'playlistItem hap_draggable hap_play' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.ogg' data-title='Tim McMorris - Happy Days Are Here To Stay' data-thumb='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.jpg'><a class='playlistNonSelected' href='#'><img src="../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.jpg" alt="image"/><p class="hap_title">Tim McMorris - Happy Days Are Here To Stay</p></a></li>
+                  
+                 <li class= 'playlistItem hap_draggable hap_play' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Health_Happiness_Success.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Health_Happiness_Success.ogg' data-title='Tim McMorris - Health Happiness Success' data-thumb='../media/audio/1/Tim_McMorris_-_Health_Happiness_Success.jpg'><a class='playlistNonSelected' href='#'><img src="../media/audio/1/Tim_McMorris_-_Health_Happiness_Success.jpg" alt="image"/><p class="hap_title">Tim McMorris - Health Happiness Success</p></a></li>
+                 
+                 <li class= 'playlistItem hap_draggable hap_play' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.ogg' data-title='Tim McMorris - Marketing Advertising Music' data-thumb='../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.jpg'><a class='playlistNonSelected' href='#'><img src="../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.jpg" alt="image"/><p class="hap_title">Tim McMorris - Marketing Advertising Music</p></a></li>
+                 
+             </ul>  
+        
+        </div> 
+             
+        <div id="componentWrapper">
+        
+        	 <div class="controls_toggle"><img src='media/data/icons/set2/play.png' alt='controls_toggle'/></div>
+             
+             <div class="player_mediaTime_current">00:00</div>
+        
+             <div class="player_progress">
+                  <div class="progress_bg"></div>
+                  <div class="load_progress"></div>
+                  <div class="play_progress"></div>
+                  <div class="player_progress_tooltip"><p></p></div>
+             </div>
+             
+             <div class="player_mediaTime_total">00:00</div>
+             
+             <div class="player_volume_wrapper">
+                 <div class="player_volume"><img src='media/data/icons/set2/volume.png' alt='player_volume'/></div>
+                 <div class="volume_seekbar" data-orientation="vertical" data-autoHide="3000">
+                     <div class="volume_bg"></div>
+                     <div class="volume_level"></div>
+                     <div class="player_volume_tooltip"><p></p></div>
+                  </div>
+             </div>
+              
+             <div class="playlistHolder">
+                 <div class="componentPlaylist">
+                     <div class="playlist_inner">
+                     	<!-- playlist items are appended here! --> 
+                     </div>
+                 </div>
+                 <!-- preloader --> 
+                 <div class="preloader"></div>
+             </div>
+
+        </div>  
+    
+	</body>
+</html>

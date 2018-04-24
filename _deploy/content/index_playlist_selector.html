@@ -1,0 +1,337 @@
+<?php
+function showFiles($path) {
+    $dir = opendir($path);
+    $files = array();
+    while ($current = readdir($dir)) {
+        if ($current != "." && $current != "..") {
+            if (is_dir($path . $current)) {
+                showFiles($path . $current . '/');
+            } 
+			else {
+				
+				if(substr($current, -3)=="mp3"){
+					 $files[] = $current;
+				}
+               
+				
+            }
+        }
+    }
+    return $files;
+}
+$musica = showFiles("../musica/");
+
+function playlist(){
+
+
+for($x=0;$x<count($musica);$x++){
+	print "
+	<ul id='playlist$x'>
+
+
+             
+                 <li class= 'playlistItem' data-type='local' data-mp3='../musica/audio/1/".$musica[$x]."' data-ogg='../media/audio/1/".substr($musica[$x],0,-4).".ogg'"." data-download>
+		<a class='playlistNonSelected' >".substr($musica[$x],0,-4)."</a>
+					
+				 </li>
+				 </ul>
+				 ";
+				
+}	
+			
+}
+?>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>HTML5 Audio Player with Playlist by Tean</title>
+       
+		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css" media="all" /><!-- scroll in playlist -->
+        <link rel="stylesheet" type="text/css" href="css/jquery.selectbox.css" /><!-- playlist selector dropdown --> 
+        <link rel="stylesheet" type="text/css" href="css/html5audio_default.css" />
+		<link rel="stylesheet" type="text/css" href="css/html5audio_playlist_selector.css" />
+        
+        <script type="text/javascript" src="js/swfobject.js"></script><!-- flash backup --> 
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script><!-- jquery ui sortable/draggable -->
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script><!-- mobile drag/sort -->
+        <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/jquery.selectbox-0.2.js"></script><!-- playlist selector dropdown -->
+        <script type="text/javascript" src="js/id3-minimized.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.html5audio.min.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.func.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.settings_playlist_selector.js"></script>
+        
+	</head>
+	<body>
+         
+         <!-- playlist selector: http://www.bulgaria-web-developers.com/projects/javascript/selectbox/ -->
+         <select name="hap_playlist" id="hap_playlist" tabindex="1">
+            <option value="playlist1">Load local playlist 1</option>
+            <option value="playlist16a">Load XML mixed playlist</option>
+            <option value="playlist16">Load XML playlist</option>
+            <!--
+            <option value="playlist_d1">Load database data playlist</option>
+            <option value="playlist_d2">Load database html playlist</option>
+            -->
+            <option value="playlist6">Load podcast playlist 1</option>
+            <option value="playlist5">Load podcast playlist 2</option>
+            
+            <option value="playlist8">Load soundcloud track set</option>
+            <option value="playlist9">Load soundcloud user tracks</option>
+            <option value="playlist10">Load soundcloud single track</option>
+            <option value="playlist11">Load soundcloud user favorites</option>
+            <option value="playlist12">Load soundcloud group</option>
+            
+            <option value="playlist17">Load youtube singles</option>
+            <option value="playlist18">Load youtube playlist</option>
+            
+            <option value="playlist19">Load offical.fm single tracks</option>
+            <option value="playlist20">Load offical.fm playlist tracks</option>
+            <option value="playlist21">Load offical.fm project tracks</option>
+            
+            <option value="playlist14">Load folder of mp3 files</option>
+            <option value="playlist5m">Load mixed playlist 1</option>
+            <option value="playlist6m">Load mixed playlist 2</option>
+        </select> 
+             
+        <!-- player code -->    
+        <div id="componentWrapper">
+        
+       		 <div class="playerHolder">
+             
+            	  <!-- song name -->
+                  <div class="player_mediaName_Mask">
+                 	  <div class="player_mediaName"></div>
+                  </div>
+                  
+                  <!-- song time -->
+                  <div class="player_mediaTime">
+                  	  <div class="player_mediaTime_current">0:00</div><div class="player_mediaTime_total">0:00</div>
+                  </div>
+             
+                  <div class="player_controls">
+                  	  <!-- previous -->
+                      <div class="controls_prev"><img src='media/data/icons/set1/prev.png' alt='controls_prev'/></div>
+                      <!-- pause/play -->
+                      <div class="controls_toggle"><img src='media/data/icons/set1/play.png' alt='controls_toggle'/></div>
+                      <!-- next -->
+                      <div class="controls_next"><img src='media/data/icons/set1/next.png' alt='controls_next'/></div>
+                      
+                 	  <!-- volume -->
+                      <div class="player_volume"><img src='media/data/icons/set1/volume.png' alt='player_volume'/></div>
+                      <div class="volume_seekbar">
+                         <div class="volume_bg"></div>
+                         <div class="volume_level"></div>
+                         <!-- volume tooltip -->
+                  		 <div class="player_volume_tooltip"><p></p></div>
+                      </div>
+                      
+                      <!-- loop -->
+                      <div class="player_loop"><img src='media/data/icons/set1/loop.png' alt='player_loop'/></div>
+                      <!-- shuffle -->
+                      <div class="player_shuffle"><img src='media/data/icons/set1/shuffle.png' alt='player_shuffle'/></div>
+                      <!-- download -->
+                      <div class="player_download"><img src='media/data/icons/set1/download.png' alt="player_download"/></div>
+                  </div>
+                  
+                  <!-- progress -->
+                  <div class="player_progress">
+                      <div class="progress_bg"></div>
+                      <div class="load_progress"></div>
+                      <div class="play_progress"></div>
+                      <!-- progress tooltip -->
+                  	  <div class="player_progress_tooltip"><p></p></div>
+                  </div>
+                  
+             </div>
+              
+             <div class="playlistHolder">
+                 <div class="componentPlaylist">
+                     <div class="playlist_inner">
+                     	<!-- playlist items are appended here! --> 
+                     </div>
+                 </div>
+                 <!-- preloader --> 
+                 <div class="preloader"></div>
+             </div>
+        
+        </div>  
+             
+        <!-- PLAYLIST LIST -->
+        <div id="playlist_list">
+                     
+             <!-- local playlist -->
+			 
+             
+             
+             <ul id='playlist2'>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_A_Way_To_The_Top.mp3' data-ogg='../media/audio/2/Soundroll_-_A_Way_To_The_Top.ogg'><a class='playlistNonSelected' href='#'>Soundroll - A Way To The Top</a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Feel_Good_Journey.mp3' data-ogg='../media/audio/2/Soundroll_-_Feel_Good_Journey.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Feel Good Journey</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Fight_No_More.mp3' data-ogg='../media/audio/2/Soundroll_-_Fight_No_More.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Fight No More</a><a class='plink' href='http://www.google.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Funky_Boom.mp3' data-ogg='../media/audio/2/Soundroll_-_Funky_Boom.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Funky Boom</a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Pump_The_Club.mp3' data-ogg='../media/audio/2/Soundroll_-_Pump_The_Club.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Pump The Club</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Rush.mp3' data-ogg='../media/audio/2/Soundroll_-_Rush.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Rush</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Sun_Is_So_Bright.mp3' data-ogg='../media/audio/2/Soundroll_-_Sun_Is_So_Bright.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Sun Is So Bright</a></li>
+             </ul>
+             
+             <!-- podcast playlists -->
+             <ul id='playlist3'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast' data-dlink></li>
+             </ul>
+             <ul id='playlist4'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://www.kingola.com/feed/podcast/' data-plink='http://codecanyon.net/user/Tean/portfolio'></li>
+             </ul>
+             <ul id='playlist5'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://www.npr.org/rss/podcast.php?id=510008'></li>
+             </ul>
+             <ul id='playlist6'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://feeds.feedburner.com/xpnmusicnotes/'></li>
+             </ul>
+             <ul id='playlist7'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://robertkelly.libsyn.com/rss'></li>
+             </ul>
+                    
+             <!-- Soundcloud playlists -->
+             <!-- track set -->
+             <ul id='playlist8'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/sets/magix-revolta-2/'></li>
+             </ul>
+             <!-- user tracks -->
+             <ul id='playlist9'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/computer-magic'></li>
+             </ul>
+             <!-- single track -->
+             <ul id='playlist10'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/trance-single-138-bpm-anvil' data-plink='http://codecanyon.net/user/Tean/portfolio' data-dlink></li>
+             </ul>
+             <!-- user favorites -->
+             <ul id='playlist11'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/an21/likes'></li>
+             </ul>
+             <!-- groups -->
+             <ul id='playlist12'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='https://soundcloud.com/groups/electronic-freakshow-efs-members-friends'></li>
+             </ul>
+             
+             <!-- read songs automatically from folder -->
+             <ul id='playlist13'>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/1/'></li>
+             </ul>
+             <ul id='playlist14'>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/2/'></li>
+             </ul>
+             
+             <!-- xml playlist -->
+             <ul id='playlist15'>
+                <li class= 'playlistItem' data-type='xml' data-path='xml/playlist1.xml'></li>
+             </ul>
+             <ul id='playlist16'>
+                <li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'></li>
+             </ul>
+              <ul id='playlist16a'>
+                <li class= 'playlistItem' data-type='xml' data-path='xml/playlist3.xml'></li>
+             </ul>
+             
+             <!-- youtube singles -->
+             <ul id='playlist17'>
+                 <li class='playlistItem' data-type='youtube_single' data-path='opL4oe62XL8' data-plink="http://www.google.com" data-download="grr"></li>
+                 <li class='playlistItem' data-type='youtube_single' data-path='Akb7SJgGx1A' ></li>
+                 <li class='playlistItem' data-type='youtube_single' data-path='uPOUgobWTT0' ></li>
+             </ul>
+             
+             <!-- youtube playlist -->
+             <ul id='playlist18'>
+                 <li class= 'playlistItem' data-type='youtube_playlist' data-path='PLDcnymzs18LVXfO_x0Ei0R24qDbVtyy66'></li> 
+             </ul>
+             
+             <!-- ofm single tracks -->
+             <ul id='playlist19'>
+             <li class= 'playlistItem' data-type='ofm_single' data-path='JQrc'></li>  
+                 <li class= 'playlistItem' data-type='ofm_single' data-path='D4lw' data-download data-dlink></li> 
+                 <li class= 'playlistItem' data-type='ofm_single' data-path='OwvI' data-dlink data-plink="http://www.google.com"></li> 
+                 
+             </ul>
+             
+             <!-- ofm playlist tracks -->
+             <ul id='playlist20'>
+                 <li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7' data-plink='http://codecanyon.net/user/Tean/portfolio'></li> 
+             </ul>
+             
+             <!-- ofm project tracks -->
+             <ul id='playlist21'>
+                 <li class= 'playlistItem' data-type='ofm_project' data-path='edB6'></li> 
+             </ul>
+             
+             <!-- DATABASE EXAMPLES -->
+             <ul id='playlist_d1'>
+                 <li class= 'playlistItem' data-type='database_data' data-path='ap_hap' data-table='sound'></li> 
+             </ul>
+             <ul id='playlist_d2'>
+                 <li class= 'playlistItem' data-type='database_html' data-path='ap_hap' data-table='sound1'></li> 
+             </ul>
+             <ul id='playlist_d3'>
+                 <li class= 'playlistItem' data-type='database_html' data-path='ap_hap' data-table='sound1' data-limit='3'></li> 
+             </ul>
+             <ul id='playlist_d4'>
+                 <li class= 'playlistItem' data-type='database_html' data-path='ap_hap' data-table='sound1' data-range='1,5'></li> 
+             </ul>
+             
+             <!-- MIXED EXAMPLES -->
+             <ul id='playlist1m'>  
+           		 <li class= 'playlistItem' data-type='xml' data-path='xml/playlist3.xml'> </li> 
+           		 <li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'></li>
+      			 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - A Bright And Hopeful Future</a></li>
+				 <li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Funky_Boom.mp3' data-ogg='../media/audio/2/Soundroll_-_Funky_Boom.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Funky Boom</a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+             </ul>
+             
+             <ul id='playlist2m'>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - A Bright And Hopeful Future</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Be My Valentine</a><a class='plink' href='http://www.google.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Give Our Dreams Their Wings To Fly</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Happy Days Are Here To Stay</a><a class='plink' href='http://www.greensock.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/an21/favorites'></li>
+                 <li class= 'playlistItem' data-type='xml' data-path='xml/playlist3.xml'></li>
+             </ul>
+             
+             <ul id='playlist3m'>
+                <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Rush.mp3' data-ogg='../media/audio/2/Soundroll_-_Rush.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Rush</a></li>
+                <li class= 'playlistItem' data-type='podcast' data-path='http://www.npr.org/rss/podcast.php?id=510008'></li>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/trance-single-138-bpm-anvil'></li>
+                <li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'></li>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/1/'></li>
+             </ul>
+             
+             <ul id='playlist4m'>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/1/' ></li>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/2/'></li>
+             </ul>
+             
+             <ul id='playlist5m'>
+            	<li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' data-download data-dlink data-thumb='../media/audio/1/_A_Bright_And_Hopeful_Future.jpg'><a class='playlistNonSelected' href='#'>Tim McMorris - A Bright And Hopeful Future</a></li>
+               <li class= 'playlistItem' data-type='podcast' data-download data-path='http://robertkelly.libsyn.com/rss' data-dlink data-thumb='media/default_artwork/podcast/01.jpg'><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+               <!--  <li class= 'playlistItem' data-type='soundcloud' data-download data-path='http://soundcloud.com/computer-magic' data-dlink data-thumb='media/default_artwork/soundcloud/01.jpg'></li> 
+                <li class= 'playlistItem' data-type='ofm_single' data-download data-path='GGXE' data-thumb='media/default_artwork/ofm_single/01.jpg' data-dlink></li>
+               
+               <li class= 'playlistItem' data-type='ofm_playlist' data-download data-dlink data-path='1rp7' data-thumb='media/default_artwork/ofm_playlist/01.jpg'></li>
+                <li class= 'playlistItem' data-type='ofm_project' data-download data-dlink data-path='edB6' data-plink='http://codecanyon.net/user/Tean/portfolio' data-thumb='media/default_artwork/ofm_project/01.jpg'></li>
+                <li class= 'playlistItem' data-type='youtube_single' data-download data-path='opL4oe62XL8' data-plink='http://www.google.com' data-thumb='media/default_artwork/yt_single/01.jpg'></li>
+                <li class= 'playlistItem' data-type='youtube_playlist' data-download data-path='PLDcnymzs18LVXfO_x0Ei0R24qDbVtyy66' data-thumb='media/default_artwork/yt_playlist/01.jpg'></li>
+               <li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'></li> 
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/1/' data-thumb='media/default_artwork/folder1/01.jpg'></li> -->
+             </ul>
+             
+             <ul id='playlist6m'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/an21/favorites' data-dlink data-thumb='media/default_artwork/soundcloud/01.jpg' data-plink='http://codecanyon.net/user/Tean/portfolio'></li> 
+                <li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7' data-thumb='media/default_artwork/ofm_playlist/01.jpg'></li>
+                <li class= 'playlistItem' data-type='ofm_project' data-path='edB6' data-thumb='media/default_artwork/ofm_project/01.jpg' data-dlink></li>
+             </ul>
+             
+        </div>
+        
+	</body>
+</html>

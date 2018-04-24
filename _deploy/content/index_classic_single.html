@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>HTML5 Audio Player with Playlist by Tean</title>
+        
+		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css" media="all" /><!-- scroll in playlist -->
+        <link rel="stylesheet" type="text/css" href="css/html5audio_default.css" />
+		<link rel="stylesheet" type="text/css" href="css/html5audio_classic_single.css" />
+        
+        <script type="text/javascript" src="js/swfobject.js"></script><!-- flash backup --> 
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script><!-- jquery ui sortable/draggable -->
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script><!-- mobile drag/sort -->
+        <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/id3-minimized.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.html5audio.min.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.func.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.settings_classic_single.js"></script>
+        
+	</head>
+	<body>
+        
+        <!-- API EXAMPLES -->
+    	<div id='publicFunctions'>
+            <ul>
+                <li><a href='#' onClick="api_inputAudio(hap_players[0],trackList2_local2[0]); return false;">Play track 'Soundroll - Funky Boom'</a></li>
+                <li><a href='#' onClick="api_inputAudio(hap_players[0],trackList2_local2[1]); return false;">Play track 'Soundroll - Fight No More'</a></li>
+                <li><a href='#' onClick="api_inputAudio(hap_players[0],trackList2_local2[2]); return false;">Play track 'Soundroll - Rush'</a></li>
+            </ul>
+        </div>
+        
+        
+        <div id="componentWrapper">
+        
+        	 <div class="controls_toggle"><img src='media/data/icons/set2/play.png' alt='controls_toggle'/></div>
+             
+             <div class="player_mediaTime_current">00:00</div>
+        
+             <div class="player_progress">
+                  <div class="progress_bg"></div>
+                  <div class="load_progress"></div>
+                  <div class="play_progress"></div>
+                  <div class="player_progress_tooltip"><p></p></div>
+             </div>
+             
+             <div class="player_mediaTime_total">00:00</div>
+             
+             <div class="player_volume_wrapper">
+                 <div class="player_volume"><img src='media/data/icons/set2/volume.png' alt='player_volume'/></div>
+                 <div class="volume_seekbar" data-orientation="vertical" data-autoHide="3000">
+                     <div class="volume_bg"></div>
+                     <div class="volume_level"></div>
+                     <div class="player_volume_tooltip"><p></p></div>
+                  </div>
+             </div>
+
+        </div>
+	
+	</body>
+</html>

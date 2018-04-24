@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>HTML5 Audio Player with Playlist</title>
+	    
+		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css" media="all" /><!-- scroll in playlist -->
+        <link rel="stylesheet" type="text/css" href="css/html5audio_default.css" />
+		<link rel="stylesheet" type="text/css" href="css/html5audio_popup_window2.css" />
+        
+        <script type="text/javascript" src="js/swfobject.js"></script><!-- flash backup --> 
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script><!-- jquery ui sortable/draggable -->
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script><!-- mobile drag/sort -->
+        <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/id3-minimized.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.html5audio.min.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.func.js"></script>
+        <script type="text/javascript">
+        		
+			function closePopup() {
+				//console.log('closePopup');
+				if(self.opener && self.opener.open_player != undefined){
+					try {//open player in parent window again
+						self.opener.open_player(hap_players[0]);//pass player reference
+					}catch(e){
+						alert('popup closePopup error: ' + e.message);
+					}	
+				}
+				self.close();
+				//console.log(self, self.opener);//Window popup.html, Window index.html
+			}	
+			
+			var hap_player1, hap_players = [hap_player1];
+		    function initPopup(settings) {
+				//console.log('initPopup');
+				var dataArr = [{holder: jQuery('#html5audio-popup'), settings:settings}];
+				checkFlash(dataArr);
+				hap_players[0] = jQuery('#html5audio-popup').html5audio(settings);
+		    }
+			
+		    jQuery(document).ready(function($){
+				//console.log('document ready popup');
+				jsReady = true;
+				//we use this method instead of callback from parent to popup because on ios, after new tab opens, it doesnt want to execute code in parent page no more and call a function in popup, until we tab back to parent window!!
+				var parent_window = window.opener;
+				
+				if(parent_window && parent_window.notify_popup != undefined){
+					try {
+						parent_window.notify_popup();
+					}catch(e){
+						alert('popup notify_popup error: ' + e.message);
+						closePopup();//IE (all versions) fix, on F5 (refresh) popup we get error: Can't execute code from a freed script. 
+					}
+				}
+				
+				$('#html5audio-popup').find('.popup_close').css('cursor','pointer').bind('click', function(){
+					closePopup();
+					return false;
+				});
+		    });	
+	   	 
+	    </script>
+     
+    </head>
+    <body>
+    	<!-- holder for the player in popup -->
+    	<div id="html5audio-popup">
+        
+        	 <div class="controls_prev"><img src='media/data/icons/set2/prev.png' alt='controls_prev'/></div>
+        
+        	 <div class="controls_toggle"><img src='media/data/icons/set2/play.png' alt='controls_toggle'/></div>
+             
+             <div class="player_mediaTime_current">00:00</div>
+             
+             <div class="controls_next"><img src='media/data/icons/set2/next.png' alt='controls_next'/></div>
+        
+             <div class="player_progress">
+                  <div class="progress_bg"></div>
+                  <div class="load_progress"></div>
+                  <div class="play_progress"></div>
+                  <div class="player_progress_tooltip"><p></p></div>
+             </div>
+             
+             <div class="player_mediaTime_total">00:00</div>
+             
+             <div class="player_volume_wrapper">
+                 <div class="player_volume"><img src='media/data/icons/set2/volume.png' alt='player_volume'/></div>
+                 <div class="volume_seekbar" data-autoHide="3000">
+                     <div class="volume_bg"></div>
+                     <div class="volume_level"></div>
+                     <div class="player_volume_tooltip"><p></p></div>
+                  </div>
+             </div>
+             
+             <div class="popup_close"><img src='media/data/icons/set2/popup_close.png' alt='popup_close'/></div>      
+              
+             <div class="playlistHolder">
+                 <div class="componentPlaylist">
+                     <div class="playlist_inner">
+                     	<!-- playlist items are appended here! --> 
+                     </div>
+                 </div>
+                 <!-- preloader --> 
+                 <div class="preloader"></div>
+             </div>
+             
+        </div>
+        
+    </body>
+</html>

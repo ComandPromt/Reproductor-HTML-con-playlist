@@ -1,0 +1,643 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>HTML5 Audio Player with Playlist by Tean</title>
+       
+		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css" media="all" /><!-- scroll in playlist -->
+        <link rel="stylesheet" type="text/css" href="css/html5audio_default.css" />
+		<link rel="stylesheet" type="text/css" href="css/html5audio_full2.css" />
+        
+        <script type="text/javascript" src="js/swfobject.js"></script><!-- flash backup --> 
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script><!-- jquery ui sortable/draggable -->
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script><!-- mobile drag/sort -->
+        <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/id3-minimized.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.html5audio.min.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.func.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.settings_full2.js"></script>
+        
+	</head>
+	<body>
+             
+        <!-- player code -->    
+        <div id="componentWrapper">
+        
+       		 <div class="playerHolder">
+             
+            	  <!-- song name -->
+                  <div class="player_mediaName_Mask">
+                 	  <div class="player_mediaName"></div>
+                  </div>
+                  
+                  <!-- song time -->
+                  <div class="player_mediaTime">
+                  	  <div class="player_mediaTime_current">0:00</div><div class="player_mediaTime_total">0:00</div>
+                  </div>
+             
+                  <div class="player_controls">
+                  	  <!-- previous -->
+                      <div class="controls_prev"><img src='media/data/icons/set1/prev.png' alt='controls_prev'/></div>
+                      <!-- pause/play -->
+                      <div class="controls_toggle"><img src='media/data/icons/set1/play.png' alt='controls_toggle'/></div>
+                      <!-- next -->
+                      <div class="controls_next"><img src='media/data/icons/set1/next.png' alt='controls_next'/></div>
+                      
+                 	  <!-- volume -->
+                      <div class="player_volume"><img src='media/data/icons/set1/volume.png' alt='player_volume'/></div>
+                      <div class="volume_seekbar">
+                         <div class="volume_bg"></div>
+                         <div class="volume_level"></div>
+                         <!-- volume tooltip -->
+                  		 <div class="player_volume_tooltip"><p></p></div>
+                      </div>
+                      
+                      <!-- loop -->
+                      <div class="player_loop"><img src='media/data/icons/set1/loop.png' alt='player_loop'/></div>
+                      <!-- shuffle -->
+                      <div class="player_shuffle"><img src='media/data/icons/set1/shuffle.png' alt='player_shuffle'/></div>
+                      <!-- download -->
+                      <div class="player_download"><img src='media/data/icons/set1/download.png' alt="player_download"/></div>
+                  </div>
+                  
+                  <!-- progress -->
+                  <div class="player_progress">
+                      <div class="progress_bg"></div>
+                      <div class="load_progress"></div>
+                      <div class="play_progress"></div>
+                      <!-- progress tooltip -->
+                  	  <div class="player_progress_tooltip"><p></p></div>
+                  </div>
+                  
+             </div>
+              
+             <div class="playlistHolder">
+                 <div class="componentPlaylist">
+                     <div class="playlist_inner">
+                     	<!-- playlist items are appended here! --> 
+                     </div>
+                 </div>
+                 <!-- preloader --> 
+                 <div class="preloader"></div>
+             </div>
+             
+             <div id="wrapper">
+             
+             <!-- API EXAMPLES -->
+    	<div id='publicFunctions'>
+       		<p>PLAYER 1 API EXAMPLES</p><br/>
+            <ul>
+            
+                <li><a href='#' onClick="api_playAudio(hap_players[0]); return false;">Play current media</a></li>
+                
+                <li><a href='#' onClick="api_pauseAudio(hap_players[0]); return false;">Pause current media</a></li>
+                
+                <li><a href='#' onClick="api_toggleAudio(hap_players[0]); return false;">Toggle current media</a></li>
+                
+                <li><a href='#' onClick="api_stopAudio(hap_players[0]); return false;">Stop current media</a></li>
+                
+                <li><a href='#' onClick="api_nextAudio(hap_players[0]); return false;">Play next</a></li>
+                
+                <li><a href='#' onClick="api_previousAudio(hap_players[0]); return false;">Play previous</a></li>
+                <br/>
+
+                <li><a href='#' onClick="api_loadAudio(hap_players[0],0); return false;">Play media number 0</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[0],1); return false;">Play media number 1</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[0],2); return false;">Play media number 2</a></li>
+                
+                <li><a href='#' onClick="api_loadAudio(hap_players[0],titleList[0]); return false;">Play media with name 'Tim McMorris - A Bright And Hopeful Future'</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[0],titleList[1]); return false;">Play media with name 'Tim McMorris - Be My Valentine'</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[0],titleList2[0]); return false;">Play media with name 'Soundroll - A Way To The Top'</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[0],titleList2[1]); return false;">Play media with name 'Soundroll - Feel Good Journey'</a></li>
+                <br/>
+
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist1'}); return false;">Load local playlist 1</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist16'}); return false;">Load XML playlist</a></li>
+              
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist3'}); return false;">Load podcast playlist 1</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist5'}); return false;">Load podcast playlist 2</a></li>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist8'}); return false;">Load soundcloud track set</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist9'}); return false;">Load soundcloud user tracks</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist10'}); return false;">Load soundcloud single track</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist11'}); return false;">Load soundcloud user favorites</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist12'}); return false;">Load soundcloud group</a></li>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist17'}); return false;">Load youtube singles</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist18'}); return false;">Load youtube playlist</a></li>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist19'}); return false;">Load offical.fm single tracks</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist20'}); return false;">Load offical.fm playlist tracks</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist21'}); return false;">Load offical.fm project tracks</a></li>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist14'}); return false;">Load folder playlist</a></li>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[0],{hidden: false, id: '#playlist5m'}); return false;">Load mixed playlist</a></li>
+                <br/>
+                
+                
+                <!-- adding database tracks -->
+               <!-- 
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_database[0], 0); return false;">Add db1 html track 0, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_database2[0], 0); return false;">Add db2 html track 0, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_database3[0], 0); return false;">Add db3 html track 0, position 0</a></li>
+               
+                
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'data', trackList2_database[0], 0); return false;">Add db1 data track 0, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'data', trackList2_database2[0], 0); return false;">Add db2 data track 0, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'data', trackList2_database3[0], 0); return false;">Add db3 data track 0, position 0</a></li>
+                 -->
+                
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_local1[0], 0); return false;">Add visible html track 0, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_local1[1], 1); return false;">Add visible html track 1, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_local1[2], 2); return false;">Add visible html track 2, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_local1[3], 3); return false;">Add visible html track 3, position 3</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_local1[3]); return false;">Add visible html track 3, position end</a></li>
+                <br/>
+                <!--
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_local1[0], 0); return false;">Add hidden data track 0, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_local1[1], 1); return false;">Add hidden data track 1, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_local1[2], 2); return false;">Add hidden data track 2, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_local1[3], 3); return false;">Add hidden data track 3, position 3</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_local1[3]); return false;">Add hidden data track 3, position end</a></li>
+                <br/>
+
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_local1, 0); return false;">Add visible html tracks, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_local1, 1); return false;">Add visible html tracks, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_local1, 2); return false;">Add visible html tracks, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_local1); return false;">Add visible html tracks, position end</a></li>
+                <br/>
+                
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_local1, 0); return false;">Add hidden data tracks, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_local1, 1); return false;">Add hidden data tracks, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_local1, 2); return false;">Add hidden data tracks, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_local1); return false;">Add hidden data tracks, position end</a></li>
+                <br/>
+                -->
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_podcast); return false;">Add visible html podcast, position end</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_soundcloud, 0); return false;">Add visible html soundcloud, position 0</a></li>
+                <li ><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_yt_single, 1); return false;">Add visible html yt_single, position 1</a></li>
+                <li ><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_yt_playlist); return false;">Add visible html yt_playlist, position end</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_ofm_single, 2); return false;">Add visible html ofm_single, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_ofm_playlist, 1); return false;">Add visible html ofm_playlist, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'visible', 'html', trackList_ofm_project, 0); return false;">Add visible html ofm_project, position 0</a></li>
+                <br/>
+                <!--
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_podcast); return false;">Add hidden data podcast, position end</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_soundcloud, 0); return false;">Add hidden data soundcloud, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_yt_single, 1); return false;">Add hidden data yt_single, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_yt_playlist); return false;">Add hidden data yt_playlist, position end</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[0], 'hidden', 'data',  trackList2_ofm_single, 2); return false;">Add hidden data ofm_single, position 2</a></li>
+                <br/>
+                 -->               
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],0); return false;">Remove track 0</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],1); return false;">Remove track 1</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],2); return false;">Remove track 2</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],3); return false;">Remove track 3</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],api_getMediaCount(hap_players[0])-1); return false;">Remove last track in playlist</a></li>
+                <br/>
+                
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],titleList[0]); return false;">Remove track with name 'Tim McMorris - A Bright And Hopeful Future'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],titleList[1]); return false;">Remove track with name 'Tim McMorris - Be My Valentine'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],titleList[2]); return false;">Remove track with name 'Tim McMorris - Give Our Dreams Their Wings To Fly'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],titleList[3]); return false;">Remove track with name 'Tim McMorris - Happy Days Are Here To Stay'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],titleList2[0]); return false;">Remove track with name 'Soundroll - A Way To The Top'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],titleList2[1]); return false;">Remove track with name 'Soundroll - Feel Good Journey'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],titleList2[2]); return false;">Remove track with name 'Soundroll - Fight No More'</a></li>
+                
+                <br/>
+
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],[0,1,2]); return false;">Remove tracks 0,1,2</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],[1,3,4]); return false;">Remove tracks 1,3,4</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],[0,4,5]); return false;">Remove tracks 0,4,5</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],[0,1,5,6]); return false;">Remove tracks 0,1,5,6</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[0],[0,1,2,3,4,5,6,7,8]); return false;">Remove tracks 0,1,2,3,4,5,6,7,8</a></li>
+
+                <!--<li><a href='#' onClick="api_removeTrack(hap_players[0],titleList2); return false;">Remove tracks titleList2 by titles</a></li>-->
+                
+                <br/>
+                
+                <li><a href='#' onClick="api_destroyAudio(hap_players[0]); return false;">Destroy active audio</a></li>
+                
+                <li><a href='#' onClick="api_destroyPlaylist(hap_players[0]); return false;">Destroy active playlist</a></li>
+                <br/>
+                
+                <li><a href='#' onClick="api_setTitle(hap_players[0],titleList[0]); return false;">Set song title 'Tim McMorris - A Bright And Hopeful Future'</a></li>
+                <li><a href='#' onClick="api_setTitle(hap_players[0],titleList[1]); return false;">Set song title 'Tim McMorris - Be My Valentine'</a></li>
+                <li><a href='#' onClick="api_setTitle(hap_players[0],titleList[2]); return false;">Set song title 'Tim McMorris - Give Our Dreams Their Wings To Fly'</a></li>
+                <br/>
+                
+                <li><a href='#' onClick="api_toggleShuffle(hap_players[0]); return false;">Toggle shuffle</a></li>
+                
+                <li><a href='#' onClick="api_toggleLoop(hap_players[0]); return false;">Toggle loop</a></li>
+
+                <li><a href='#' onClick="api_setVolume(hap_players[0],0); return false;">Set volume (0%, mute)</a></li>
+                <li><a href='#' onClick="api_setVolume(hap_players[0],0.5); return false;">Set volume (50%)</a></li>
+                <li><a href='#' onClick="api_setVolume(hap_players[0],1); return false;">Set volume (100%)</a></li>
+                
+                <!--
+                <li><a href='#' onClick="api_orderPlaylist(hap_players[0], 'reverse'); return false;">reverse</a></li>
+                <li><a href='#' onClick="api_orderPlaylist(hap_players[0], 'random'); return false;">random</a></li>
+                <li><a href='#' onClick="api_orderPlaylist(hap_players[0], 'remap',[5,2,4,1,6,3,0]); return false;">remap</a></li>
+                <li><a href='#' onClick="api_orderPlaylist(hap_players[0], 'swap', [2,0]); return false;">swap</a></li>-->
+                <br/>
+            </ul>
+         </div>
+         
+         </div>
+        
+        </div> 
+        
+        <!-- player code -->    
+        <div id="componentWrapper2">
+        
+       		 <div class="playerHolder">
+             
+            	  <!-- song name -->
+                  <div class="player_mediaName_Mask">
+                 	  <div class="player_mediaName"></div>
+                  </div>
+                  
+                  <!-- song time -->
+                  <div class="player_mediaTime">
+                  	  <div class="player_mediaTime_current">0:00</div><div class="player_mediaTime_total">0:00</div>
+                  </div>
+             
+                  <div class="player_controls">
+                  	  <!-- previous -->
+                      <div class="controls_prev"><img src='media/data/icons/set1/prev.png' alt='controls_prev'/></div>
+                      <!-- pause/play -->
+                      <div class="controls_toggle"><img src='media/data/icons/set1/play.png' alt='controls_toggle'/></div>
+                      <!-- next -->
+                      <div class="controls_next"><img src='media/data/icons/set1/next.png' alt='controls_next'/></div>
+                      
+                 	  <!-- volume -->
+                      <div class="player_volume"><img src='media/data/icons/set1/volume.png' alt='player_volume'/></div>
+                      <div class="volume_seekbar">
+                         <div class="volume_bg"></div>
+                         <div class="volume_level"></div>
+                         <!-- volume tooltip -->
+                  		 <div class="player_volume_tooltip"><p></p></div>
+                      </div>
+                      
+                      <!-- loop -->
+                      <div class="player_loop"><img src='media/data/icons/set1/loop.png' alt='player_loop'/></div>
+                      <!-- shuffle -->
+                      <div class="player_shuffle"><img src='media/data/icons/set1/shuffle.png' alt='player_shuffle'/></div>
+                      <!-- download -->
+                      <div class="player_download"><img src='media/data/icons/set1/download.png' alt="player_download"/></div>
+                  </div>
+                  
+                  <!-- progress -->
+                  <div class="player_progress">
+                      <div class="progress_bg"></div>
+                      <div class="load_progress"></div>
+                      <div class="play_progress"></div>
+                      <!-- progress tooltip -->
+                  	  <div class="player_progress_tooltip"><p></p></div>
+                  </div>
+                  
+             </div>
+              
+             <div class="playlistHolder">
+                 <div class="componentPlaylist">
+                     <div class="playlist_inner">
+                     	<!-- playlist items are appended here! --> 
+                     </div>
+                 </div>
+                 <!-- preloader --> 
+                 <div class="preloader"></div>
+             </div>
+        
+        <div id="wrapper2">
+        
+        <!-- API EXAMPLES -->
+    	<div id='publicFunctions2'>
+       		<p>PLAYER 2 API EXAMPLES</p><br/>
+            <ul>
+            
+                <li><a href='#' onClick="api_playAudio(hap_players[1]); return false;">Play current media</a></li>
+                
+                <li><a href='#' onClick="api_pauseAudio(hap_players[1]); return false;">Pause current media</a></li>
+                
+                <li><a href='#' onClick="api_toggleAudio(hap_players[1]); return false;">Toggle current media</a></li>
+                
+                <li><a href='#' onClick="api_stopAudio(hap_players[1]); return false;">Stop current media</a></li>
+                
+                <li><a href='#' onClick="api_nextAudio(hap_players[1]); return false;">Play next</a></li>
+                
+                <li><a href='#' onClick="api_previousAudio(hap_players[1]); return false;">Play previous</a></li>
+                <br/>
+
+                <li><a href='#' onClick="api_loadAudio(hap_players[1],0); return false;">Play media number 0</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[1],1); return false;">Play media number 1</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[1],2); return false;">Play media number 2</a></li>
+                
+                <li><a href='#' onClick="api_loadAudio(hap_players[1],titleList[0]); return false;">Play media with name 'Tim McMorris - A Bright And Hopeful Future'</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[1],titleList[1]); return false;">Play media with name 'Tim McMorris - Be My Valentine'</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[1],titleList2[0]); return false;">Play media with name 'Soundroll - A Way To The Top'</a></li>
+                <li><a href='#' onClick="api_loadAudio(hap_players[1],titleList2[1]); return false;">Play media with name 'Soundroll - Feel Good Journey'</a></li>
+                <br/>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist1'}); return false;">Load local playlist 1</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist16'}); return false;">Load XML playlist</a></li>
+              
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist3'}); return false;">Load podcast playlist 1</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist5'}); return false;">Load podcast playlist 2</a></li>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist8'}); return false;">Load soundcloud track set</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist9'}); return false;">Load soundcloud user tracks</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist10'}); return false;">Load soundcloud single track</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist11'}); return false;">Load soundcloud user favorites</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist12'}); return false;">Load soundcloud group</a></li>
+                
+                <li ><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist17'}); return false;">Load youtube singles</a></li>
+                <li ><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist18'}); return false;">Load youtube playlist</a></li>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist19'}); return false;">Load offical.fm single tracks</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist20'}); return false;">Load offical.fm playlist tracks</a></li>
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist21'}); return false;">Load offical.fm project tracks</a></li>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist14'}); return false;">Load folder playlist</a></li>
+                
+                <li><a href='#' onClick="api_loadPlaylist(hap_players[1],{hidden: false, id: '#playlist5m'}); return false;">Load mixed playlist</a></li>
+                <br/>
+
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_local1[0], 0); return false;">Add visible html track 0, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_local1[1], 1); return false;">Add visible html track 1, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_local1[2], 2); return false;">Add visible html track 2, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_local1[3], 3); return false;">Add visible html track 3, position 3</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_local1[3]); return false;">Add visible html track 3, position end</a></li>
+                <br/>
+                <!--
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_local1[0], 0); return false;">Add hidden data track 0, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_local1[1], 1); return false;">Add hidden data track 1, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_local1[2], 2); return false;">Add hidden data track 2, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_local1[3], 3); return false;">Add hidden data track 3, position 3</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_local1[3]); return false;">Add hidden data track 3, position end</a></li>
+                <br/>
+
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_local1, 0); return false;">Add visible html tracks, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_local1, 1); return false;">Add visible html tracks, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_local1, 2); return false;">Add visible html tracks, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_local1); return false;">Add visible html tracks, position end</a></li>
+                <br/>
+                
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_local1, 0); return false;">Add hidden data tracks, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_local1, 1); return false;">Add hidden data tracks, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_local1, 2); return false;">Add hidden data tracks, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_local1); return false;">Add hidden data tracks, position end</a></li>
+                <br/>
+                -->
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_podcast); return false;">Add visible html podcast, position end</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_soundcloud, 0); return false;">Add visible html soundcloud, position 0</a></li>
+                <li ><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_yt_single, 1); return false;">Add visible html yt_single, position 1</a></li>
+                <li ><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_yt_playlist); return false;">Add visible html yt_playlist, position end</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_ofm_single, 2); return false;">Add visible html ofm_single, position 2</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_ofm_playlist, 1); return false;">Add visible html ofm_playlist, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'visible', 'html', trackList_ofm_project, 0); return false;">Add visible html ofm_project, position 0</a></li>
+                <br/>
+                 <!--
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_podcast); return false;">Add hidden data podcast, position end</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_soundcloud, 0); return false;">Add hidden data soundcloud, position 0</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_yt_single, 1); return false;">Add hidden data yt_single, position 1</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_yt_playlist); return false;">Add hidden data yt_playlist, position end</a></li>
+                <li><a href='#' onClick="api_addTrack(hap_players[1], 'hidden', 'data',  trackList2_ofm_single, 2); return false;">Add hidden data ofm_single, position 2</a></li>
+                <br/>
+                -->
+                
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],0); return false;">Remove track 0</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],1); return false;">Remove track 1</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],2); return false;">Remove track 2</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],3); return false;">Remove track 3</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],api_getMediaCount(hap_players[1])-1); return false;">Remove last track in playlist</a></li>
+                <br/>
+                
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],titleList[0]); return false;">Remove track with name 'Tim McMorris - A Bright And Hopeful Future'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],titleList[1]); return false;">Remove track with name 'Tim McMorris - Be My Valentine'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],titleList[2]); return false;">Remove track with name 'Tim McMorris - Give Our Dreams Their Wings To Fly'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],titleList[3]); return false;">Remove track with name 'Tim McMorris - Happy Days Are Here To Stay'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],titleList2[0]); return false;">Remove track with name 'Soundroll - A Way To The Top'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],titleList2[1]); return false;">Remove track with name 'Soundroll - Feel Good Journey'</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],titleList2[2]); return false;">Remove track with name 'Soundroll - Fight No More'</a></li>
+                
+                <br/>
+
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],[0,1,2]); return false;">Remove tracks 0,1,2</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],[1,3,4]); return false;">Remove tracks 1,3,4</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],[0,4,5]); return false;">Remove tracks 0,4,5</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],[0,1,5,6]); return false;">Remove tracks 0,1,5,6</a></li>
+                <li><a href='#' onClick="api_removeTrack(hap_players[1],[0,1,2,3,4,5,6,7,8]); return false;">Remove tracks 0,1,2,3,4,5,6,7,8</a></li>
+
+                <!--<li><a href='#' onClick="api_removeTrack(hap_players[1],titleList2); return false;">Remove tracks titleList2 by titles</a></li>-->
+                
+                <br/>
+                
+                <li><a href='#' onClick="api_destroyAudio(hap_players[1]); return false;">Destroy active audio</a></li>
+                
+                <li><a href='#' onClick="api_destroyPlaylist(hap_players[1]); return false;">Destroy active playlist</a></li>
+                <br/>
+                
+                <li><a href='#' onClick="api_setTitle(hap_players[1],titleList[0]); return false;">Set song title 'Tim McMorris - A Bright And Hopeful Future'</a></li>
+                <li><a href='#' onClick="api_setTitle(hap_players[1],titleList[1]); return false;">Set song title 'Tim McMorris - Be My Valentine'</a></li>
+                <li><a href='#' onClick="api_setTitle(hap_players[1],titleList[2]); return false;">Set song title 'Tim McMorris - Give Our Dreams Their Wings To Fly'</a></li>
+                <br/>
+                
+                <li><a href='#' onClick="api_toggleShuffle(hap_players[1]); return false;">Toggle shuffle</a></li>
+                
+                <li><a href='#' onClick="api_toggleLoop(hap_players[1]); return false;">Toggle loop</a></li>
+                
+                <li><a href='#' onClick="api_setVolume(hap_players[1],0); return false;">Set volume (0%, mute)</a></li>
+                <li><a href='#' onClick="api_setVolume(hap_players[1],0.5); return false;">Set volume (50%)</a></li>
+                <li><a href='#' onClick="api_setVolume(hap_players[1],1); return false;">Set volume (100%)</a></li>
+                
+                <!--
+                <li><a href='#' onClick="api_orderPlaylist(hap_players[1], 'reverse'); return false;">reverse</a></li>
+                <li><a href='#' onClick="api_orderPlaylist(hap_players[1], 'random'); return false;">random</a></li>
+                <li><a href='#' onClick="api_orderPlaylist(hap_players[1], 'remap',[5,2,4,1,6,3,0]); return false;">remap</a></li>
+                <li><a href='#' onClick="api_orderPlaylist(hap_players[1], 'swap', [2,0]); return false;">swap</a></li>-->
+                <br/>
+            </ul>
+         </div>
+        
+        </div>   
+        
+        </div>   
+        
+        
+             
+        <!-- PLAYLIST LIST -->
+        <div id="playlist_list">
+                     
+             <!-- local playlist -->
+             <ul id='playlist1'>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' data-download><a class='playlistNonSelected' href='#'>Tim McMorris - A Bright And Hopeful Future</a><a class='dlink' href='#' data-dlink='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3'><img src='media/data/dlink.png' alt = ''/></a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Be My Valentine</a><a class='dlink' href='#' data-dlink='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.mp3'><img src='media/data/dlink.png' alt = ''/></a><a class='plink' href='http://www.google.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Give Our Dreams Their Wings To Fly</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Happy Days Are Here To Stay</a><a class='plink' href='http://www.greensock.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Health_Happiness_Success.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Health_Happiness_Success.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Health Happiness Success</a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Marketing Advertising Music</a><a class='dlink' href='#' data-dlink='../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.mp3'><img src='media/data/dlink.png' alt = ''/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Successful_Business_Venture.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Successful_Business_Venture.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Successful Business Venture</a></li>
+             </ul>
+             
+             <ul id='playlist2'>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_A_Way_To_The_Top.mp3' data-ogg='../media/audio/2/Soundroll_-_A_Way_To_The_Top.ogg'><a class='playlistNonSelected' href='#'>Soundroll - A Way To The Top</a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Feel_Good_Journey.mp3' data-ogg='../media/audio/2/Soundroll_-_Feel_Good_Journey.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Feel Good Journey</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Fight_No_More.mp3' data-ogg='../media/audio/2/Soundroll_-_Fight_No_More.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Fight No More</a><a class='plink' href='http://www.google.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Funky_Boom.mp3' data-ogg='../media/audio/2/Soundroll_-_Funky_Boom.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Funky Boom</a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Pump_The_Club.mp3' data-ogg='../media/audio/2/Soundroll_-_Pump_The_Club.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Pump The Club</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Rush.mp3' data-ogg='../media/audio/2/Soundroll_-_Rush.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Rush</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Sun_Is_So_Bright.mp3' data-ogg='../media/audio/2/Soundroll_-_Sun_Is_So_Bright.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Sun Is So Bright</a></li>
+             </ul>
+             
+             <!-- podcast playlists -->
+             <ul id='playlist3'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast'></li>
+             </ul>
+             <ul id='playlist4'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://www.kingola.com/feed/podcast/'></li>
+             </ul>
+             <ul id='playlist5'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://www.npr.org/rss/podcast.php?id=510008'></li>
+             </ul>
+             <ul id='playlist6'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://feeds.feedburner.com/xpnmusicnotes/'></li>
+             </ul>
+             <ul id='playlist7'>
+                 <li class= 'playlistItem' data-type='podcast' data-path='http://robertkelly.libsyn.com/rss'></li>
+             </ul>
+                    
+             <!-- Soundcloud playlists -->
+             <!-- track set -->
+             <ul id='playlist8'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/sets/magix-revolta-2/'></li>
+             </ul>
+             <!-- user tracks -->
+             <ul id='playlist9'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/computer-magic'></li>
+             </ul>
+             <!-- single track -->
+             <ul id='playlist10'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/trance-single-138-bpm-anvil'></li>
+             </ul>
+             <!-- user favorites -->
+             <ul id='playlist11'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/an21/favorites'></li>
+             </ul>
+             <!-- groups -->
+             <ul id='playlist12'>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='https://soundcloud.com/groups/electronic-freakshow-efs-members-friends'></li>
+             </ul>
+             
+             <!-- read songs automatically from folder -->
+             <ul id='playlist13'>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/1/'></li>
+             </ul>
+             <ul id='playlist14'>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/2/'></li>
+             </ul>
+             
+             <!-- xml playlist -->
+             <ul id='playlist15'>
+                <li class= 'playlistItem' data-type='xml' data-path='xml/playlist1.xml'></li>
+             </ul>
+             <ul id='playlist16'>
+                <li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'></li>
+             </ul>
+             
+             <!-- youtube singles -->
+             <ul id='playlist17'>
+                 <li class='playlistItem' data-type='youtube_single' data-path='opL4oe62XL8' ></li>
+                 <li class='playlistItem' data-type='youtube_single' data-path='Akb7SJgGx1A' ></li>
+                 <li class='playlistItem' data-type='youtube_single' data-path='uPOUgobWTT0' ></li>
+             </ul>
+             
+             <!-- youtube playlist -->
+             <ul id='playlist18'>
+                 <li class= 'playlistItem' data-type='youtube_playlist' data-path='PLDcnymzs18LVXfO_x0Ei0R24qDbVtyy66'></li> 
+             </ul>
+             
+             <!-- ofm single tracks -->
+             <ul id='playlist19'>
+                 <li class= 'playlistItem' data-type='ofm_single' data-path='D4lw' data-download data-dlink></li> 
+                 <li class= 'playlistItem' data-type='ofm_single' data-path='OwvI' data-dlink></li> 
+                 <li class= 'playlistItem' data-type='ofm_single' data-path='JQrc'></li>  
+             </ul>
+             
+             <!-- ofm playlist tracks -->
+             <ul id='playlist20'>
+                 <li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7'></li> 
+             </ul>
+             
+             <!-- ofm project tracks -->
+             <ul id='playlist21'>
+                 <li class= 'playlistItem' data-type='ofm_project' data-path='edB6'></li> 
+             </ul>
+             
+             <!-- DATABASE EXAMPLES -->
+             <ul id='playlist_d1'>
+                 <li class= 'playlistItem' data-type='database_data' data-path='ap_hap' data-table='sound'/>
+             </ul>
+             <ul id='playlist_d2'>
+                 <li class= 'playlistItem' data-type='database_html' data-path='ap_hap' data-table='sound1'/>
+             </ul>
+             <ul id='playlist_d3'>
+                 <li class= 'playlistItem' data-type='database_html' data-path='ap_hap' data-table='sound1' data-limit='3'/>
+             </ul>
+             <ul id='playlist_d4'>
+                 <li class= 'playlistItem' data-type='database_html' data-path='ap_hap' data-table='sound1' data-range='1,5'/>
+             </ul>
+
+             
+             <!-- MIXED EXAMPLES -->
+             <ul id='playlist1m'>  
+           		 <li class= 'playlistItem' data-type='xml' data-path='xml/playlist1.xml'> </li> 
+           		 <li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'></li>
+      			 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - A Bright And Hopeful Future</a></li>
+				 <li class= 'playlistItem' data-type='xml' data-path='xml/playlist3.xml'></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Funky_Boom.mp3' data-ogg='../media/audio/2/Soundroll_-_Funky_Boom.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Funky Boom</a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+             </ul>
+             
+             <ul id='playlist2m'>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - A Bright And Hopeful Future</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Be My Valentine</a><a class='plink' href='http://www.google.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Give Our Dreams Their Wings To Fly</a></li>
+                 <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Happy Days Are Here To Stay</a><a class='plink' href='http://www.greensock.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/an21/favorites'></li>
+                 <li class= 'playlistItem' data-type='xml' data-path='xml/playlist3.xml'></li>
+             </ul>
+             
+             <ul id='playlist3m'>
+                <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/2/Soundroll_-_Rush.mp3' data-ogg='../media/audio/2/Soundroll_-_Rush.ogg'><a class='playlistNonSelected' href='#'>Soundroll - Rush</a></li>
+                <li class= 'playlistItem' data-type='podcast' data-path='http://www.npr.org/rss/podcast.php?id=510008'></li>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/trance-single-138-bpm-anvil'></li>
+                <li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'></li>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/1/'></li>
+             </ul>
+             
+             <ul id='playlist4m'>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/1/'></li>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/2/'></li>
+             </ul>
+             
+             <ul id='playlist5m'>
+                <li class= 'playlistItem' data-type='podcast' data-path='http://robertkelly.libsyn.com/rss' data-dlink data-thumb='media/default_artwork/podcast/01.jpg'><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                <li class= 'playlistItem' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' data-thumb='../media/audio/1/_A_Bright_And_Hopeful_Future.jpg'><a class='playlistNonSelected' href='#'>Tim McMorris - A Bright And Hopeful Future</a></li>
+                <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/an21/favorites' data-dlink data-thumb='media/default_artwork/soundcloud/01.jpg'/>
+                <li class= 'playlistItem' data-type='ofm_single' data-path='D4lw' data-dlink data-thumb='media/default_artwork/ofm_single/01.jpg'></li>
+                <li class= 'playlistItem' data-type='youtube_single' data-path='opL4oe62XL8' data-thumb='media/default_artwork/yt_single/01.jpg'></li>
+                
+               <!-- <li class= 'playlistItem' data-type='ofm_playlist' data-path='1rp7' data-thumb='media/default_artwork/ofm_playlist/01.jpg'></li>
+                <li class= 'playlistItem' data-type='ofm_project' data-path='edB6' data-thumb='media/default_artwork/ofm_project/01.jpg'></li>
+                <li class= 'playlistItem' data-type='youtube_playlist' data-path='PLDcnymzs18LVXfO_x0Ei0R24qDbVtyy66' data-thumb='media/default_artwork/yt_playlist/01.jpg'></li>
+                <li class= 'playlistItem' data-type='folder' data-path='../media/audio/3/'/>
+                <li class= 'playlistItem' data-type='database_html' data-path='ap_hap' data-table='sound1'/>
+                <li class= 'playlistItem' data-type='xml' data-path='xml/playlist2.xml'/>-->
+             </ul>
+
+        </div>
+    
+	</body>
+</html>

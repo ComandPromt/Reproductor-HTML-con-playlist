@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>HTML5 Audio Player with Playlist by Tean</title>
+        
+        <link rel="stylesheet" type="text/css" href="css/html5audio_default.css" />
+		<link rel="stylesheet" type="text/css" href="css/html5audio_bare_minimum.css" />
+        
+        <script type="text/javascript" src="js/swfobject.js"></script><!-- flash backup --> 
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.min.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.func.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.settings_bare_minimum.js"></script>
+        
+	</head>
+	<body>
+        
+    	<div id='publicFunctions'>
+            <ul>
+                <li><a href='#' onClick="api_inputAudio(hap_players[0],trackList2_local2[0]); return false;">Play track 'Soundroll - Funky Boom'</a></li>
+                <li><a href='#' onClick="api_inputAudio(hap_players[0],trackList2_local2[1]); return false;">Play track 'Soundroll - Fight No More'</a></li>
+                <li><a href='#' onClick="api_inputAudio(hap_players[0],trackList2_local2[2]); return false;">Play track 'Soundroll - Rush'</a></li>
+            </ul>
+        </div>
+        
+        <div id="componentWrapper"></div>
+	
+	</body>
+</html>

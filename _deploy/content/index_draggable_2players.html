@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>HTML5 Audio Player with Playlist by Tean</title>
+       
+		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css" media="all" /><!-- scroll in playlist -->
+        <link rel="stylesheet" type="text/css" href="css/jquery.selectbox.css" /><!-- playlist selector dropdown -->
+        <link rel="stylesheet" type="text/css" href="css/html5audio_default.css" />
+		<link rel="stylesheet" type="text/css" href="css/html5audio_draggable_2players.css" />
+        
+        <script type="text/javascript" src="js/swfobject.js"></script><!-- flash backup --> 
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script><!-- jquery ui drag/sort -->
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script><!-- mobile drag/sort -->
+        <script type="text/javascript" src="js/jquery.XDomainRequest.js"/></script><!-- ofm ie9 and below fix -->
+        <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script><!-- scroll in playlist -->
+        <script type="text/javascript" src="js/jquery.selectbox-0.2.js"></script><!-- playlist selector dropdown -->
+        <script type="text/javascript" src="js/id3-minimized.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.html5audio.min.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.func.js"></script>
+        <script type="text/javascript" src="js/jquery.html5audio.settings_draggable_2players.js"></script>
+        
+	</head>
+	<body>
+           
+        <!-- playlist selector: http://www.bulgaria-web-developers.com/projects/javascript/selectbox/ -->
+        <select name="hap_playlist" id="hap_playlist" tabindex="1">
+            <option value="playlist1">Local playlist 1</option>
+            <option value="ofm_singles">Official.fm singles</option>
+            <option value="youtube_singles">Youtube singles</option>
+            <option value="playlist_youtube">Youtube playlist</option>
+            <option value="playlist_podcast">Podcast playlist</option>
+            <option value="playlist_soundcloud">SoundCloud playlist</option>
+        </select>  
+           
+        <!-- player code -->   
+        <!-- we have removed player from this instance because we wont play music with this instance, we will just use it to process playlist urls like soundcloud, youtube etc... -->     
+        <div id="componentWrapper">
+              
+             <div class="playlistHolder" data-playlistLocked>
+                 <div class="componentPlaylist">
+                     <div class="playlist_inner">
+                     	<!-- playlist items are appended here! --> 
+                     </div>
+                 </div>
+                 <!-- preloader --> 
+                 <div class="preloader"></div>
+             </div>
+        
+        </div> 
+             
+        <!-- player code -->    
+        <div id="componentWrapper2">
+        
+       		 <div class="playerHolder">
+             
+            	  <!-- song name -->
+                  <div class="player_mediaName_Mask">
+                 	  <div class="player_mediaName"></div>
+                  </div>
+                  
+                  <!-- song time -->
+                  <div class="player_mediaTime">
+                  	  <div class="player_mediaTime_current">0:00</div><div class="player_mediaTime_total">0:00</div>
+                  </div>
+             
+                  <div class="player_controls">
+                  	  <!-- previous -->
+                      <div class="controls_prev"><img src='media/data/icons/set1/prev.png' alt='controls_prev'/></div>
+                      <!-- pause/play -->
+                      <div class="controls_toggle"><img src='media/data/icons/set1/play.png' alt='controls_toggle'/></div>
+                      <!-- next -->
+                      <div class="controls_next"><img src='media/data/icons/set1/next.png' alt='controls_next'/></div>
+                      
+                 	  <!-- volume -->
+                      <div class="player_volume"><img src='media/data/icons/set1/volume.png' alt='player_volume'/></div>
+                      <div class="volume_seekbar">
+                         <div class="volume_bg"></div>
+                         <div class="volume_level"></div>
+                         <!-- volume tooltip -->
+                  		 <div class="player_volume_tooltip"><p></p></div>
+                      </div>
+                      
+                      <!-- loop -->
+                      <div class="player_loop"><img src='media/data/icons/set1/loop.png' alt='player_loop'/></div>
+                      <!-- shuffle -->
+                      <div class="player_shuffle"><img src='media/data/icons/set1/shuffle.png' alt='player_shuffle'/></div>
+                      <!-- download -->
+                      <div class="player_download"><img src='media/data/icons/set1/download.png' alt="player_download"/></div>
+                  </div>
+                  
+                  <!-- progress -->
+                  <div class="player_progress">
+                      <div class="progress_bg"></div>
+                      <div class="load_progress"></div>
+                      <div class="play_progress"></div>
+                      <!-- progress tooltip -->
+                  	  <div class="player_progress_tooltip"><p></p></div>
+                  </div>
+                  
+             </div>
+              
+             <div class="playlistHolder">
+                 <div class="componentPlaylist">
+                     <div class="playlist_inner">
+                        <p class="drag_info">DRAG THE SONGS IN HERE!</p>
+                     	<!-- playlist items are appended here! --> 
+                     </div>
+                 </div>
+                 <!-- preloader 
+                 <div class="preloader"></div>--> 
+             </div>
+        
+        </div>  
+             
+        <!-- PLAYLIST LIST -->
+        <div id="playlist_list">
+                     
+             <!-- local playlist -->
+             <ul id='playlist1'>
+                 <li class= 'playlistItem hap_draggable' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.ogg' data-download><a class='playlistNonSelected' href='#'>Tim McMorris - A Bright And Hopeful Future</a><a class='dlink' href='#' data-dlink='../media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3'><img src='media/data/dlink.png' alt = ''/></a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem hap_draggable' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Be My Valentine</a><a class='dlink' href='#' data-dlink='../media/audio/1/Tim_McMorris_-_Be_My_Valentine.mp3'><img src='media/data/dlink.png' alt = ''/></a><a class='plink' href='http://www.google.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem hap_draggable' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Give Our Dreams Their Wings To Fly</a></li>
+                 <li class= 'playlistItem hap_draggable' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Happy Days Are Here To Stay</a><a class='plink' href='http://www.greensock.com' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem hap_draggable' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Health_Happiness_Success.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Health_Happiness_Success.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Health Happiness Success</a><a class='plink' href='http://codecanyon.net/user/Tean/portfolio' target='_blank'><img src='media/data/url.png' alt = 'purchase'/></a></li>
+                 <li class= 'playlistItem hap_draggable' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Marketing Advertising Music</a><a class='dlink' href='#' data-dlink='../media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.mp3'><img src='media/data/dlink.png' alt = ''/></a></li>
+                 <li class= 'playlistItem hap_draggable' data-type='local' data-mp3='../media/audio/1/Tim_McMorris_-_Successful_Business_Venture.mp3' data-ogg='../media/audio/1/Tim_McMorris_-_Successful_Business_Venture.ogg'><a class='playlistNonSelected' href='#'>Tim McMorris - Successful Business Venture</a></li>
+             </ul>
+             
+             <!-- we need empty playlist in player initiated so the songs can be dragged into it! -->
+             <ul id='playlist2' class="hap_sortable"></ul>
+             
+             <!-- ofm single tracks -->
+             <ul id='ofm_singles'>
+                 <li class= 'playlistItem hap_draggable' data-type='ofm_single' data-path='D4lw' data-download data-dlink data-plink='http://codecanyon.net/user/Tean/portfolio'></li> 
+                 <li class= 'playlistItem hap_draggable' data-type='ofm_single' data-path='OwvI' data-dlink></li> 
+                 <li class= 'playlistItem hap_draggable' data-type='ofm_single' data-path='JQrc'></li>  
+             </ul>
+             
+             <!-- youtube singles -->
+             <ul id='youtube_singles'>
+                 <li class='playlistItem hap_draggable' data-type='youtube_single' data-path='oGGCRHRW8cs' data-plink='http://codecanyon.net/user/Tean/portfolio'></li>
+                 <li class='playlistItem hap_draggable' data-type='youtube_single' data-path='0qy9Vagwrxo' ></li>
+                 <li class='playlistItem hap_draggable' data-type='youtube_single' data-path='ezf34E1bHzs' data-plink='http://www.google.com'></li>
+                 <li class='playlistItem hap_draggable' data-type='youtube_single' data-path='opL4oe62XL8' ></li>
+                 <li class='playlistItem hap_draggable' data-type='youtube_single' data-path='Akb7SJgGx1A' ></li>
+                 <li class='playlistItem hap_draggable' data-type='youtube_single' data-path='uPOUgobWTT0' ></li> 
+             </ul>
+             
+             <!-- youtube playlist -->
+             <ul id='playlist_youtube'>
+                 <li class= 'playlistItem hap_draggable' data-type='youtube_playlist' data-path='PLDcnymzs18LVXfO_x0Ei0R24qDbVtyy66' data-thumb='media/default_artwork/yt_playlist/01.jpg'></li> 
+             </ul>
+             
+             <!-- podcast playlists -->
+             <ul id='playlist_podcast'>
+                 <li class= 'playlistItem hap_draggable' data-type='podcast' data-path='http://www.kingola.com/feed/podcast/' data-thumb='media/default_artwork/podcast/01.jpg' data-dlink data-plink='http://codecanyon.net/user/Tean/portfolio'></li>
+             </ul>
+                    
+             <!-- Soundcloud playlists -->
+             <ul id='playlist_soundcloud'>
+                <li class= 'playlistItem hap_draggable' data-type='soundcloud' data-path='http://soundcloud.com/computer-magic' data-thumb='media/default_artwork/soundcloud/01.jpg' data-dlink></li>
+             </ul>
+
+        </div>
+        
+    
+	</body>
+</html>
